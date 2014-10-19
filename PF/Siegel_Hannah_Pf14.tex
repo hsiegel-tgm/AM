@@ -1,13 +1,24 @@
-\documentclass{article}
+\documentclass[12pt]{article}
 
 %% Created with wxMaxima 12.04.0
 
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{ulem}
+\usepackage{placeins}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{listings}
+\usepackage{glossaries}
+\usepackage[
+top    = 2.75cm,
+bottom = 2.00cm,
+left   = 2.50cm,
+right  = 2.00cm]{geometry}
+\setcounter{secnumdepth}{4}
 \setlength{\parskip}{\medskipamount}
 \setlength{\parindent}{0pt}
-\usepackage[utf8]{inputenc}
-\usepackage{graphicx}
-\usepackage{color}
-\usepackage{amsmath}
 
 \definecolor{labelcolor}{RGB}{100,0,0}
 
@@ -758,114 +769,115 @@ paint_TYPE1_stricherl(list_angabe):=block(
 \section{Glossar}
 
 
-BESCHREIBENDE STATISTIK:
+BESCHREIBENDE STATISTIK: \\
     Untersucht eine STICHPROBE und davon ein MERKMAL
-
+ \\ \\
 MERKMALE werden unterteilt man in Qualitative(eg Farbe eines Autos) und Quantitive( )
-
+\\ \\
 Groessere Eimheit aus welcher die Stichprobe kommt ist die GRUNDGESAMMTHEIT
+\\ \\
+STICHPROBE: \\
+    * Merkmalswerte \& KENNGROESSEN \\
+    * Darstellung (sowohl mit als auch ohne Kenngroessen als graphik oder tabelle) \\
+       =\verb|>| Beischreibung -\verb|>| 'beschreibende Statistik' \\ \\
 
-STICHPROBE: 
-    * Merkmalswerte \& KENNGROESSEN
-    * Darstellung (sowohl mit als auch ohne Kenngroessen als graphik oder tabelle) 
-       =\verb|>| Beischreibung -\verb|>| 'beschreibende Statistik'
+URLISTE      \\
+   Die Urliste gilt als eingangsparameter, sie sollte jedoch immer UNVERAENDERT behalten werden, daher wird sie einfach kopiert. \\
 
-URLISTE      
-   Die Urliste gilt als eingangsparameter, sie sollte jedoch immer UNVERAENDERT behalten werden, daher wird sie einfach kopiert.
+------------------------
 
----------+-------------------------------+-----------------------------+---------------
-
-ABSOLUTE HAEUFIGKEIT
-    Die Absolute Haeufigkeit zeichnet auf, wie oft (=Anzahl) welcher Messwert (=Groesse) vorkommt. 
+ABSOLUTE HAEUFIGKEIT \\
+    Die Absolute Haeufigkeit zeichnet auf, wie oft (=Anzahl) welcher Messwert (=Groesse) vorkommt. \\
         absolute Haeufigkeit = relative Haeufigkeit * Anzahl der Erhebungen
+        \\ \\
 
-RELATIVE HAEUFIGKEIT
-    Die Relative Haeufigkeit zeigt auf, zu wie viel Prozent welcher Messwert (=Groesse)vorkommt.
-        relative Haeufigkeit = absolute Haeufigkeit / Anzahl der Erhebungen
+RELATIVE HAEUFIGKEIT \\
+    Die Relative Haeufigkeit zeigt auf, zu wie viel Prozent welcher Messwert (=Groesse)vorkommt. \\
+        relative Haeufigkeit = absolute Haeufigkeit / Anzahl der Erhebungen \\ \\
 
-KUMMULATIV
-    Kummulative Haeufigkeiten zeigen auf, wie oft welcher Messwert vorkommt.
-    Man addiert immer die vorherigen Messwerte zu dem neuen dazu. 
-    Dadurch wird im endeffekt immer die anzahl der messwerte (absolut) oder 100\% (reativ) erreicht.
-    Durch die Kummulative Haeufigkeit entstehen neue Moeglichkeiten, die Messwerte zu interpretieren.
+KUMMULATIV \\
+    Kummulative Haeufigkeiten zeigen auf, wie oft welcher Messwert vorkommt. \\
+    Man addiert immer die vorherigen Messwerte zu dem neuen dazu.  \\
+    Dadurch wird im endeffekt immer die anzahl der messwerte (absolut) oder 100\% (reativ) erreicht. \\
+    Durch die Kummulative Haeufigkeit entstehen neue Moeglichkeiten, die Messwerte zu interpretieren. \\
 
----------+-------------------------------+-----------------------------+---------------
+--------------------
 
-PARETTODIAGRAMM
-    ein Pareto Diagramm ist ein Balkendiagramm
-    y-Achse : Absolute Haeufigkeit
-    x-Achse : Fehler nach Wichtigkeit geordnet
+PARETTODIAGRAMM \\
+    ein Pareto Diagramm ist ein Balkendiagramm \\
+    y-Achse : Absolute Haeufigkeit \\
+    x-Achse : Fehler nach Wichtigkeit geordnet \\ \\
 
-KREISDIAGRAMM      
+KREISDIAGRAMM      \\
     ein Kreisdiagramm Diagramm (oder auch Tortendiagramm) zeigt die verteilung der Fehler auf.
-        Der Winkel der flaeche wird durch die Haeufigkeit bestimmt.
+        Der Winkel der flaeche wird durch die Haeufigkeit bestimmt. \\
 
----------+-------------------------------+-----------------------------+---------------
+-----------------------
 
-KLASSENBILDUNG
-   Man teilt in Klassen, wenn die Daten zu unterschiedlich sind. 
+KLASSENBILDUNG \\
+   Man teilt in Klassen, wenn die Daten zu unterschiedlich sind. \\
    Durch einen VERLUST an INFORMATION gleichzeitig ein GEWINN an UEBERSICHTLICHKEIT der Darstellung
-
-    SCHRITTE ZUR KLASSENBILDUNG
-        (1) Die Klassengrenzen sollen moeglichst einfache Zahlen sein, welche genau sind allerdings von den Eingangsdaten abhaengig
-        (2) Unterste und oberste Klasse werden so gewaehlt, dass der kleinstwert und der groesstwert drinnenliegt.
-        (3) Wenn m die STICHPROBEN: meistens sqrt(m) aber immer \verb|<|= 20 Klassen
+\\ \\
+    SCHRITTE ZUR KLASSENBILDUNG \\
+        (1) Die Klassengrenzen sollen moeglichst einfache Zahlen sein, welche genau sind allerdings von den Eingangsdaten abhaengig \\
+        (2) Unterste und oberste Klasse werden so gewaehlt, dass der kleinstwert und der groesstwert drinnenliegt. \\
+        (3) Wenn m die STICHPROBEN: meistens sqrt(m) aber immer \verb|<|= 20 Klassen \\
         (4) Die Klassenbreiten sollten gleich gross gewaehlt werden (mit ausnahme der 1. und letzten Klasse)
         (5) Klassen breite W:   wenn n \verb|<|= 400 --\verb|>| W = (xmax - xmin) / sqrt(n) --\verb|>| Ergebniss runden
                                 wenn n \verb|>| 400 --\verb|>| W = (xmax - xmin) / 20 --\verb|>| Ergebniss runden
-
-    Die Urliste wird durch die Klasseneinteilung (welche dokumentiert und begruendet werden muss) in eine neue liste eingetragen
+\\ \\
+    Die Urliste wird durch die Klasseneinteilung (welche dokumentiert und begruendet werden muss) in eine neue liste eingetragen \\
     Diese Liste hat das Format: [1,2,6,2,8,3,5,1,5,7,8,3,7,... ] und kann somit wieder interpretiert werden.
+\\ \\
+-----------------------
+\\ \\
+KENNZAHLEN (Kenngeoessen): unter Verlust von Information enthaltene Kenngroessen zum Vergleich von Haeufigkeiten \\
+    beeinhaltet: Mittelwert, Standardabweichung, Varianz, Spannweite, Minimalwert, Maximalwert, Median, Quantile, Quartile \\ \\
 
----------+-------------------------------+-----------------------------+---------------
+MITTELWERT \\
+    HARMONISCHER MITTELWERT: \\
+      n dividiert durch die Summe der Kehrwerte aller Elemente (= arithmetische Mittel der Kehrwerte) \\
+    ARITHMETISCHER MITTELWERT: \\
+      Summe aller Elemente / n \\
+    GEOMETRISCHER MITTELWERT: \\
+        Die n-te Wurzel aus dem Produkt aller Elemente \\ \\
 
-KENNZAHLEN (Kenngeoessen): unter Verlust von Information enthaltene Kenngroessen zum Vergleich von Haeufigkeiten
-    beeinhaltet: Mittelwert, Standardabweichung, Varianz, Spannweite, Minimalwert, Maximalwert, Median, Quantile, Quartile
+MEDIAN \\
+    Genaue Haelfte der Liste \\
+        Wenn n gerade: Mittelwert der beiden mittleren Elemente \\
+        Wenn n ungerade: Mittelstes Element \\ \\
 
-MITTELWERT
-    HARMONISCHER MITTELWERT:
-      n dividiert durch die Summe der Kehrwerte aller Elemente (= arithmetische Mittel der Kehrwerte)
-    ARITHMETISCHER MITTELWERT:
-      Summe aller Elemente / n 
-    GEOMETRISCHER MITTELWERT:
-        Die n-te Wurzel aus dem Produkt aller Elemente
-
-MEDIAN
-    Genaue Haelfte der Liste
-        Wenn n gerade: Mittelwert der beiden mittleren Elemente
-        Wenn n ungerade: Mittelstes Element
-
-SPANNWEITE
+SPANNWEITE \\
     Die Distanz zwischen dem kleinsten und dem Groesstem Wert
-
-QUANTIL
-    Ein Teil einer Menge, ein Lagemass, ein Schwellenwert.
+\\ \\
+QUANTIL \\
+    Ein Teil einer Menge, ein Lagemass, ein Schwellenwert. \\
     Spezielle Quantile sind der Median, die Quartile, die Quintile, die Dezile und die Perzentile.
+\\ \\
 
+QUARTIL (=Viertelwerte) \\
+     Ein Quartil ist ein konkreter Wert bei \\
+        0.25-Quantil = unteres Quartil \\ 
+        0.50-Quantil = Median \\
+        0.75-Quantil = oberes Quartil \\ \\
 
-QUARTIL (=Viertelwerte)
-     Ein Quartil ist ein konkreter Wert bei
-        0.25-Quantil = unteres Quartil
-        0.50-Quantil = Median
-        0.75-Quantil = oberes Quartil
-
-VARIANZ
+VARIANZ \\
     Bei der Berechnung der Varianz wird von jedem Wert aus der Urliste das Arithmetische Mittel abgezogen und
-    die daraus folgende Summe wird quadriert und mit den entsprechenden anderen Werte addiert.
-    Das ganze wird dann nochmal durch n dividiert.
+    die daraus folgende Summe wird quadriert und mit den entsprechenden anderen Werte addiert. \\
+    Das ganze wird dann nochmal durch n dividiert. \\ \\
 
-STANDARDABWEICHUNG
+STANDARDABWEICHUNG \\
     Die Standardabweichung wird berechnet, indem aus der Varianz die (quadtratische) Wurzel gezogen wird.
-
-BOXPLOT
+\\ \\
+BOXPLOT \\
     Ein Boxplot dient dazu, einen schnellen Ueberblick ueber die Daten zu gewinnen.
-    Alle oben genannten Punkte werden Dargestellt.
-    Von links nach rechts ist die Bedeutung der Striche folgende:
-        1 ... Kleinster Wert
-        2 ... 1. Quartil
-        3 ... Median
-        4 ... 3. Quartil
-        5 ... Groesster Wert
+    Alle oben genannten Punkte werden Dargestellt. \\
+    Von links nach rechts ist die Bedeutung der Striche folgende: \\
+        1 ... Kleinster Wert \\
+        2 ... 1. Quartil \\
+        3 ... Median \\
+        4 ... 3. Quartil \\
+        5 ... Groesster Wert \\
     Andere Groessen, so wie zb. die Spannweite koennen daher nun auch aus dieser Grafik abgelesen werden.
 
 
@@ -954,10 +966,6 @@ paint_TYPE1_points(sort(angabe));
 \includegraphics[width=9cm]{Siegel_Hannah_Pf14_img/Siegel_Hannah_Pf14_1.png}
 \end{math}
 
-\begin{math}\displaystyle
-\parbox{8ex}{\color{labelcolor}(\%o28) }
-
-\end{math}
 %%%%%%%%%%%%%%%
 
 
@@ -980,11 +988,6 @@ paint_TYPE1_stricherl(angabe);
 \includegraphics[width=9cm]{Siegel_Hannah_Pf14_img/Siegel_Hannah_Pf14_2.png}
 \end{math}
 
-\begin{math}\displaystyle
-\parbox{8ex}{\color{labelcolor}(\%o29) }
-
-\end{math}
-%%%%%%%%%%%%%%%
 
 
 \subsection{Absolute Haeufigkeit}
@@ -1011,12 +1014,6 @@ draw_ABSOLUTE_HFG_normal(angabe,1);
 \includegraphics[width=9cm]{Siegel_Hannah_Pf14_img/Siegel_Hannah_Pf14_3.png}
 \end{math}
 
-\begin{math}\displaystyle
-\parbox{8ex}{\color{labelcolor}(\%o30) }
-
-\end{math}
-%%%%%%%%%%%%%%%
-
 
 \subsection{Relative Haeufigkeit}
 
@@ -1041,12 +1038,6 @@ draw_RELATIVE_HFG_normal(angabe,5);
 \parbox{8ex}{\color{labelcolor}(\%t31) }
 \includegraphics[width=9cm]{Siegel_Hannah_Pf14_img/Siegel_Hannah_Pf14_4.png}
 \end{math}
-
-\begin{math}\displaystyle
-\parbox{8ex}{\color{labelcolor}(\%o31) }
-
-\end{math}
-%%%%%%%%%%%%%%%
 
 
 \subsection{Kommulative absolute Haeufigkeit}
@@ -1073,11 +1064,6 @@ draw_KUM_ABS_HFG_normal(angabe,5);
 \includegraphics[width=9cm]{Siegel_Hannah_Pf14_img/Siegel_Hannah_Pf14_5.png}
 \end{math}
 
-\begin{math}\displaystyle
-\parbox{8ex}{\color{labelcolor}(\%o32) }
-
-\end{math}
-%%%%%%%%%%%%%%%
 
 
 \subsection{Kommulative relative Haeufigkeit}
@@ -1104,13 +1090,6 @@ draw_KUM_REL_HFG_normal(angabe,10);
 \includegraphics[width=9cm]{Siegel_Hannah_Pf14_img/Siegel_Hannah_Pf14_6.png}
 \end{math}
 
-\begin{math}\displaystyle
-\parbox{8ex}{\color{labelcolor}(\%o33) }
-
-\end{math}
-%%%%%%%%%%%%%%%
-
-
 \section{Paretto und Kreisdiagramm}
 
 
@@ -1129,27 +1108,23 @@ kill(values);
 \end{verbatim}}
 \end{minipage}
 %%% OUTPUT:
-\begin{math}\displaystyle
-\parbox{8ex}{\color{labelcolor}(\%o34) }
-done
-\end{math}
-%%%%%%%%%%%%%%%
+
 
 
 \subsection{Angabe }
 
 
-Bei der Produktion von Blechteilen sind bei der Qualitätskontrolle folgende Fehler aufgetreten:
-Fehler      Fehlerart   Häufigkeit
-    1       Delle        8
-    2       Kratzer     26
-    3       Korrosion    4
-    4       Lackfehler  38
-    5       Verbogen     4
-    6       Gerissen     2
-    7       Maßfehler    2
-    8       Bohrfehler   3
-    9       Sonstige     3
+Bei der Produktion von Blechteilen sind bei der Qualitätskontrolle folgende Fehler aufgetreten: \\
+Fehler      Fehlerart   Häufigkeit \\
+    1       Delle        8 \\
+    2       Kratzer     26 \\
+    3       Korrosion    4 \\
+    4       Lackfehler  38 \\
+    5       Verbogen     4 \\ 
+    6       Gerissen     2 \\
+    7       Maßfehler    2 \\
+    8       Bohrfehler   3 \\
+    9       Sonstige     3 \\
 
 \noindent
 %%%%%%%%%%%%%%%
@@ -1204,11 +1179,6 @@ draw_pareto(angabe);
 \includegraphics[width=9cm]{Siegel_Hannah_Pf14_img/Siegel_Hannah_Pf14_7.png}
 \end{math}
 
-\begin{math}\displaystyle
-\parbox{8ex}{\color{labelcolor}(\%o37) }
-
-\end{math}
-%%%%%%%%%%%%%%%
 
 
 \subsection{Kreisdiagramm}
@@ -1234,11 +1204,6 @@ draw_piechart(angabe);
 \includegraphics[width=9cm]{Siegel_Hannah_Pf14_img/Siegel_Hannah_Pf14_8.png}
 \end{math}
 
-\begin{math}\displaystyle
-\parbox{8ex}{\color{labelcolor}(\%o38) }
-
-\end{math}
-%%%%%%%%%%%%%%%
 
 
 \section{Klassenbildung}
@@ -1258,25 +1223,20 @@ draw_piechart(angabe);
 kill(values);
 \end{verbatim}}
 \end{minipage}
-%%% OUTPUT:
-\begin{math}\displaystyle
-\parbox{8ex}{\color{labelcolor}(\%o39) }
-done
-\end{math}
-%%%%%%%%%%%%%%%
+
 
 
 \subsection{Angabe}
 
 
-Eine Messung des Füllgewichtes von 80 automatisch abgefüllten Marmeladegläsern ergab folgende Werte (in g):
-93.0  88.2  92.1  91.0  86.9  93.8  91.0  92.0  87.4  92.1
-92.7  93.3  88.8  91.5  90.4  88.1  89.7  88.9  92.7  91.4
-89.6  89.4  87.3  86.5  90.8  90.3  86.9  91.2  89.3  90.4
-94.2  90.4  90.8  91.9  90.8  92.4  88.3  92.0  87.3  93.8
-90.6  88.0  94.0  90.9  88.0  93.1  91.7  89.7  92.7  89.5
-90.7  89.3  89.3  86.5  88.9  87.5  88.2  88.7  90.2  86.3
-93.9  86.4  90.6  87.9  85.0  89.1  91.8  92.3  87.9  95.4
+Eine Messung des Füllgewichtes von 80 automatisch abgefüllten Marmeladegläsern ergab folgende Werte (in g): \\
+93.0  88.2  92.1  91.0  86.9  93.8  91.0  92.0  87.4  92.1 \\
+92.7  93.3  88.8  91.5  90.4  88.1  89.7  88.9  92.7  91.4 \\
+89.6  89.4  87.3  86.5  90.8  90.3  86.9  91.2  89.3  90.4 \\
+94.2  90.4  90.8  91.9  90.8  92.4  88.3  92.0  87.3  93.8 \\
+90.6  88.0  94.0  90.9  88.0  93.1  91.7  89.7  92.7  89.5 \\
+90.7  89.3  89.3  86.5  88.9  87.5  88.2  88.7  90.2  86.3 \\
+93.9  86.4  90.6  87.9  85.0  89.1  91.8  92.3  87.9  95.4 
 
 \noindent
 %%%%%%%%%%%%%%%
@@ -1296,27 +1256,27 @@ messwerte:[93.9 , 86.4 , 90.6 , 87.9 , 85.0 , 89.1 , 91.8 , 92.3 , 87.9 , 95.4,9
 \subsection{Theorie}
 
 
-Es herrscht bei dieser Angabe folgendes Problem: 80 Balken und alle sind ca geich gross aber doch nicht genau gleich (unterschied nach dem Komma).
+Es herrscht bei dieser Angabe folgendes Problem: 80 Balken und alle sind ca geich gross aber doch nicht genau gleich (unterschied nach dem Komma). \\
 Daher: teilen in Klassen (e.g. unter 85, zwische 85 und 90, zwischen 90 und 95 ... ueber 110)
-
-Bei der Klassenbildung gilt immer dass:
+\\ \\
+Bei der Klassenbildung gilt immer dass: \\
     durch einen VERLUST an INFORMATION gleichzeitig ein GEWINN an UEBERSICHTLICHKEIT der Darstellung
-
-SCHRITTE ZUR KLASSENBILDUNG
-    (1) Die Klassengrenzen sollen moeglichst einfache Zahlen sein, welche genau sind allerdings von den Eingangsdaten abhaengig
-    (2) Unterste und oberste Klasse werden so gewaehlt, dass der kleinstwert und der groesstwert drinnenliegt.
-    (3) Wenn m die STICHPROBEN: meistens sqrt(m) aber immer \verb|<|= 20 Klassen
-    (4) Die Klassenbreiten sollten gleich gross gewaehlt werden (mit ausnahme der 1. und letzten Klasse)
+\\ \\
+SCHRITTE ZUR KLASSENBILDUNG \\
+    (1) Die Klassengrenzen sollen moeglichst einfache Zahlen sein, welche genau sind allerdings von den Eingangsdaten abhaengig \\
+    (2) Unterste und oberste Klasse werden so gewaehlt, dass der kleinstwert und der groesstwert drinnenliegt. \\
+    (3) Wenn m die STICHPROBEN: meistens sqrt(m) aber immer \verb|<|= 20 Klassen \\
+    (4) Die Klassenbreiten sollten gleich gross gewaehlt werden (mit ausnahme der 1. und letzten Klasse) \\
     (5) Klassen breite W:   wenn n \verb|<|= 400 --\verb|>| W = (xmax - xmin) / sqrt(n) --\verb|>| Ergebniss runden
                             wenn n \verb|>| 400 --\verb|>| W = (xmax - xmin) / 20 --\verb|>| Ergebniss runden
-
-Die Urliste wird durch die Klasseneinteilung (welche dokumentiert und begruendet werden muss) in eine neue liste eingetragen
+\\ \\
+Die Urliste wird durch die Klasseneinteilung (welche dokumentiert und begruendet werden muss) in eine neue liste eingetragen \\
 Diese Liste hat das Format: [1,2,6,2,8,3,5,1,5,7,8,3,7,... ] und kann somit wieder interpretiert werden.
 
 \subsection{Klassenbildung}
 
 
-(2)
+(2) \\
 Kleinstwert(xmin) und Groesstwert (xmax)
 
 \noindent
@@ -1345,7 +1305,7 @@ groesstwert: lmax(messwerte);
 \end{math}
 %%%%%%%%%%%%%%%
 
-(3)
+(3) \\
 Anzahl der Messwerte
 
 \noindent
@@ -1362,13 +1322,9 @@ anzahl_messwerte:length(messwerte);
 \end{verbatim}}
 \end{minipage}
 %%% OUTPUT:
-\begin{math}\displaystyle
-\parbox{8ex}{\color{labelcolor}(\%o43) }
-70
-\end{math}
-%%%%%%%%%%%%%%%
 
-(3)
+
+(3) \\
 Anzahl der Klassen
 
 \noindent
@@ -1435,11 +1391,11 @@ W=1.300000000000001
 \end{math}
 %%%%%%%%%%%%%%%
 
-KLASSENBILDUNG
-Das Ergebniss aus (3) und (4) muss nun interpretiert werden.
-Da nur ganzzahlige Klassen gebildet werden koennen, sollten entweder 8 oder 9 Klassen gebildet werden.
-Die Klassenbreite soll bei etwa 1.3 liegen. Da dies eine nicht sehr schoene Zahl ist, kann man entwender 1.25 oder 1.5 waehlen.
-Wir waehlen nun folgende werte:
+KLASSENBILDUNG \\
+Das Ergebniss aus (3) und (4) muss nun interpretiert werden. \\
+Da nur ganzzahlige Klassen gebildet werden koennen, sollten entweder 8 oder 9 Klassen gebildet werden.\\
+Die Klassenbreite soll bei etwa 1.3 liegen. Da dies eine nicht sehr schoene Zahl ist, kann man entwender 1.25 oder 1.5 waehlen. \\
+Wir waehlen nun folgende werte: \\
 1.25 und 8
 
 \noindent
@@ -1468,7 +1424,7 @@ anzahl_klassen:8;
 \end{math}
 %%%%%%%%%%%%%%%
 
-Aufruf des Blockes
+Aufruf des Blockes \\
 Return value anzusprechen: end\_wert (klasseneingeteilt) , klassen (die eingeteilt wurden)
 
 \noindent
@@ -1518,21 +1474,21 @@ length(end_list)=length(messwerte);
 
 
 Sollten die Werte (Labels) sich ueberschneiden, weil zu viele klassen geawehlt sind, muss man jediglich:
-- den letzten sowie den vorletzten Wert variieren, bis die Grafik schoen ist.
+- den letzten sowie den vorletzten Wert variieren, bis die Grafik schoen ist. \\
 Die Default values koennen mit 0 angesprochen werden, oder einfach eingegeben werden ([500,300])
-
-Die schon oben angefuehrte Erklaerung der draw Bloecke:
-    Jeder draw\_TYPE\_klassen Block, macht die Klasseneinteilung sowie das Zeichnen mit den Labels automatisch.
+\\ \\
+Die schon oben angefuehrte Erklaerung der draw Bloecke: \\
+    Jeder draw\_TYPE\_klassen Block, macht die Klasseneinteilung sowie das Zeichnen mit den Labels automatisch. \\ \\
 
 draw\_TYPE\_klassen(messwerte,steps,anzahl\_klasse,ytics,minus\_delta,xdimension,ydimension)
-
-messwerte ... Eine Liste der messwerte im Format [Messwert1, Messwert2, ...]
-steps ... Die Klassenbreite W
-anzahl\_klassen ... Anzahl der Klassen
-ytics ... Abstand der Werte auf der y-Achse (Default:5)
-minus\_delta ... POSITIVER Wert, range fuer das anzeigen der Labels (sollte meist zwischen ca 5 und 20 liegen) (Default:10)
-xdimension ... Groesse der Zeichnung nach x (Default:500)
-ydimension ... Groesse der Zeichnung nach y (Default:300)
+\\ \\
+messwerte ... Eine Liste der messwerte im Format [Messwert1, Messwert2, ...] \\
+steps ... Die Klassenbreite W \\
+anzahl\_klassen ... Anzahl der Klassen \\
+ytics ... Abstand der Werte auf der y-Achse (Default:5) \\
+minus\_delta ... POSITIVER Wert, range fuer das anzeigen der Labels (sollte meist zwischen ca 5 und 20 liegen) (Default:10) \\
+xdimension ... Groesse der Zeichnung nach x (Default:500) \\
+ydimension ... Groesse der Zeichnung nach y (Default:300) \\
 
 Zeichnen der absoluten Haeufigkeit
 
@@ -1555,10 +1511,6 @@ draw_ABSOLUTE_HFG_klassen(messwerte,steps,anzahl_klassen,0,0,0,0);
 \includegraphics[width=9cm]{Siegel_Hannah_Pf14_img/Siegel_Hannah_Pf14_9.png}
 \end{math}
 
-\begin{math}\displaystyle
-\parbox{8ex}{\color{labelcolor}(\%o51) }
-
-\end{math}
 %%%%%%%%%%%%%%%
 
 Zeichnen der relativen Haeufigkeit
@@ -1582,10 +1534,6 @@ draw_RELATIVE_HFG_klassen(messwerte,steps,anzahl_klassen,0,0,0,0);
 \includegraphics[width=9cm]{Siegel_Hannah_Pf14_img/Siegel_Hannah_Pf14_10.png}
 \end{math}
 
-\begin{math}\displaystyle
-\parbox{8ex}{\color{labelcolor}(\%o52) }
-
-\end{math}
 %%%%%%%%%%%%%%%
 
 Zeichnen der Kommulativen absoluten Haeufigkeit
@@ -1609,11 +1557,6 @@ draw_KUM_ABS_HFG_klassen(messwerte,steps,anzahl_klassen,10,20,0,0);
 \includegraphics[width=9cm]{Siegel_Hannah_Pf14_img/Siegel_Hannah_Pf14_11.png}
 \end{math}
 
-\begin{math}\displaystyle
-\parbox{8ex}{\color{labelcolor}(\%o53) }
-
-\end{math}
-%%%%%%%%%%%%%%%
 
 
 \subsection{Kommulative relative Haeufigkeit}
@@ -1640,11 +1583,6 @@ draw_KUM_REL_HFG_klassen(messwerte,steps,anzahl_klassen,10,20,0,0);
 \includegraphics[width=9cm]{Siegel_Hannah_Pf14_img/Siegel_Hannah_Pf14_12.png}
 \end{math}
 
-\begin{math}\displaystyle
-\parbox{8ex}{\color{labelcolor}(\%o54) }
-
-\end{math}
-%%%%%%%%%%%%%%%
 
 
 \section{Kenngroessen}
@@ -1666,18 +1604,13 @@ load(descriptive)$
 load(draw)$
 \end{verbatim}}
 \end{minipage}
-%%% OUTPUT:
-\begin{math}\displaystyle
-\parbox{8ex}{\color{labelcolor}(\%o0) }
-done
-\end{math}
-%%%%%%%%%%%%%%%
+
 
 
 \subsection{Angabe}
 
 
-Aus einer Lieferung von elektrischen Widerständen gleicher Art werden einige Stück herausgegriffen und gemessen. 
+Aus einer Lieferung von elektrischen Widerständen gleicher Art werden einige Stück herausgegriffen und gemessen.  \\
 Dabei werden folgende Werte (in Ohm) gefunden:
 
 \noindent
@@ -2029,10 +1962,6 @@ wxboxplot(angabe,box_orientation=horizontal,box_width=0.25,color=rand_col(1),lin
 \includegraphics[width=9cm]{Siegel_Hannah_Pf14_img/Siegel_Hannah_Pf14_13.png}
 \end{math}
 
-\begin{math}\displaystyle
-\parbox{8ex}{\color{labelcolor}(\%o17) }
 
-\end{math}
-%%%%%%%%%%%%%%%
 
 \end{document}
