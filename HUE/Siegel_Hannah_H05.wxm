@@ -1,0 +1,332 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 12.04.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+load(descriptive)$
+load(draw)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: title   start ]
+Statistik und Wahrscheinlichkeitsrechnung
+H05  -  Siegel Hannah  -  5AHITT
+   [wxMaxima: title   end   ] */
+
+/* [wxMaxima: section start ]
+Einfuehrung
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: subsect start ]
+Theorie
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+BESCHREIBENDE STATISTIK:
+    Untersucht eine STICHPROBE und davon ein MERKMAL
+
+MERKMALE werden unterteilt man in Qualitative(eg Farbe eines Autos) und Quantitive(#)
+
+Groessere Eimheit ais welcher die Stichprobe kommt ist die GRUNDGESAMMTHEIT
+
+STICHPROBE: 
+    * Merkmalswerte & KENNGROESSEN
+    * Darstellung (sowohl mit als auch ohne Kenngroessen als graphik oder tabelle) 
+       => Beischreibung -> 'beschreibende Statistik'
+
+Die Urliste gilt als eingangsparameter, sie sollte jedoch immer UNVERAENDERT behalten werden, daher wird sie einfach kopiert. 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+urliste:[53,47,52,49,50,50,47,43,48,50,51,53,54,56,46,49,51,50,49];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+angabe:sort(urliste);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Einfache Darstellung
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Block fuer das Zeichnen von Punkten als Punkte:
+    list_angabe ... angabe der Punkte
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+paint_TYPE1_points(list_angabe):=block(
+    return_points:[],
+    for i:1 while i<=length(list_angabe) do [
+        return_points:append(return_points,[[i,list_angabe[i]]])
+    ],
+    wxplot2d([[discrete,return_points]],[x,0,length(return_points)+1],[y,lmin(angabe)-2,lmax(angabe)+2],[style,[points,1,2,4]],[legend,"NAME"]) 
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Block fuer das Zeichnen von Punkten als Balken:
+    list_angabe ... angabe der Punkte
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+paint_TYPE1_stricherl(list_angabe):=block(
+    first:[],
+    second:[],
+    for i:1 while i<=length(angabe) do [
+        first: append(first,[angabe[i]]),
+        second: append(second,[i])
+    ],
+    return_stuff:[second,first],
+    wxdraw2d(
+        xrange=[lmin(return_stuff[1])-1,lmax(return_stuff[1])+1], 
+        yrange=[lmin(return_stuff[2])-1,lmax(return_stuff[2])+1], 
+        xaxis=true, 
+        yaxis=true, 
+        grid=true, 
+        xtics=1, 
+        ytics=1,
+        points_joined = impulses,
+        color=light-salmon,
+        line_width=10,
+        points(return_stuff[1],return_stuff[2]),
+        xlabel="Größe Merkmal", ylabel="Anzahl"
+   )
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Einfache Darstellungen der Angabe
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+paint_TYPE1_points(sort(angabe));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+paint_TYPE1_stricherl(angabe);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Absolute Haeufigkeit
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Die Absolute Haeufigkeit zeichnet einfach auf, wie oft welcher Messwert vorkommt.
+
+Block:
+    list_angabe ... liste von Werten
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+paint_ABSOLUTE_HFG(list_angabe):=block(
+    list_discrete:discrete_freq(list_angabe),
+   
+    wxdraw2d(
+        xrange=[lmin(list_discrete[1])-1,lmax(list_discrete[1])+1], 
+        yrange=[lmin(list_discrete[2])-1,lmax(list_discrete[2])+1], 
+        xaxis=true, 
+        yaxis=true, 
+        grid=true, 
+        xtics=1, 
+        ytics=1,
+        points_joined = impulses,
+        title="Absolute Haeufigkeit",
+        color=dark-pink,
+        line_width=10,
+        points(list_discrete[1],list_discrete[2]),
+        xlabel="Messwert", ylabel="Anzahl"
+        )
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Zeichnen der absoluten Haeufigkeit fuer Kondensatoren
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+paint_ABSOLUTE_HFG(angabe);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Relative Haeufigkeit
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Die Relative Haeufigkeit zeichnet einfach auf, wie oft welcher Messwert in PROZENT vorkommt.
+
+Block:
+    list_angabe ... liste von Werten
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+paint_RELATIVE_HFG(list_angabe):=block(
+    prozente:[],
+    list_discrete:discrete_freq(list_angabe),
+    for n:1 while n<=length(list_discrete[2]) do [
+        prozent: (100/length(angabe)) * list_discrete[2][n],
+        prozent: float(prozent),
+        prozent: round(prozent),
+        prozente:append(prozente,[prozent])
+    ],
+    relative_hf:[list_discrete[1],prozente],
+   wxdraw2d(
+        xrange=[lmin(relative_hf[1])-1,lmax(relative_hf[1])+1],
+        yrange=[lmin(relative_hf[2])-1,lmax(relative_hf[2])+1],
+        xaxis=true, yaxis=true,
+        grid=true,
+        xtics=1,
+        ytics=5,
+        title="Relative Haeufigkeit",
+        points_joined = impulses,
+        color=magenta,
+        line_width=10,
+        points(relative_hf[1],relative_hf[2]),
+        xlabel="Messwert", ylabel="Anzahl in Prozent"
+        )
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Zeichnen der relativen Haeufigkeit fuer Kondensatoren
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+paint_RELATIVE_HFG(angabe);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Kommulative absolute Haeufigkeit
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Die Kommulative absolute Haeufigkeit zeichnet einfach auf, wie oft welcher Messwert vorkommt.
+Sie addiert allerdings immer die vorherigen Messwerte zu dem neuen. 
+Sie beitet daher eine neue Art die Messwerte zu interpretieren.
+
+Block:
+    list_angabe ... liste von Werten
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+paint_KUM_ABS_HFG(list_angabe):=block(
+    list_discrete:discrete_freq(list_angabe),
+    neu1:[],
+    neu2:[],
+    found:1,
+    sum:0,
+    neue_werte:[],
+    for n:1 while n<=length(list_discrete[2]) do [
+        neuer_wert: list_discrete[2][n]+sum,
+        sum : sum + list_discrete[2][n],
+        neue_werte:append(neue_werte,[neuer_wert])
+    ],
+    abs_hf:[list_discrete[1],neue_werte],
+
+    for k:lmin(abs_hf[1]) while k<=lmax(abs_hf[1]) do [
+        neu1:append(neu1,[k]),
+        if ((member(k,abs_hf[1]))) then neu2:append(neu2,[abs_hf[2][found]]),
+        if ((member(k,abs_hf[1]))) then found:found+1,
+        if (not(member(k,abs_hf[1]))) then neu2:append(neu2,[neu2[k-lmin(abs_hf[1])]])
+    ],  
+
+    abs_hf:[neu1,neu2],
+    wxdraw2d(
+        xrange=[lmin(abs_hf[1])-1,lmax(abs_hf[1])+1], 
+        yrange=[lmin(abs_hf[2])-1,lmax(abs_hf[2])+1], 
+        xaxis=true, 
+        yaxis=true, 
+        grid=true, 
+        xtics=1, 
+        ytics=5,
+        title = "Kommulative absolute Haeufigkeit",
+        points_joined = impulses,
+        color=plum,
+        line_width=10,
+        points(abs_hf[1],abs_hf[2]),
+        xlabel="Groesse", ylabel="Anzahl"
+        )
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Zeichnen der Kommulativen absoluten Haeufigkeit fuer Kondensatoren
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+paint_KUM_ABS_HFG(angabe);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Kommulative relative Haeufigkeit
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Die Kommulative relative Haeufigkeit zeichnet einfach auf, wie oft welcher Messwert in PROZENT vorkommt.
+Sie addiert allerdings immer die vorherigen Messwerte zu dem neuen. 
+Sie beitet daher eine neue Art die Messwerte zu interpretieren.
+Am Ende kommt man immer auf 100 Prozent!
+
+Block:
+    list_angabe ... liste von Werten
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+paint_KUM_REL_HFG(list_angabe):=block(
+    list_discrete:discrete_freq(list_angabe),
+
+    prozente:[],
+    list_discrete:discrete_freq(list_angabe),
+    for n:1 while n<=length(list_discrete[2]) do [
+        prozent: (100/length(angabe)) * list_discrete[2][n],
+        prozent: float(prozent),
+        prozent: round(prozent),
+        prozente:append(prozente,[prozent])
+    ],
+    list_discrete:[list_discrete[1],prozente],
+
+    neu1:[],
+    neu2:[],
+    found:1,
+    sum:0,
+    neue_werte:[],
+    for n:1 while n<=length(list_discrete[2]) do [
+        neuer_wert: list_discrete[2][n]+sum,
+        sum : sum + list_discrete[2][n],
+        neue_werte:append(neue_werte,[neuer_wert])
+    ],
+    abs_hf:[list_discrete[1],neue_werte],
+    for k:lmin(abs_hf[1]) while k<=lmax(abs_hf[1]) do [
+        neu1:append(neu1,[k]),
+        if ((member(k,abs_hf[1]))) then neu2:append(neu2,[abs_hf[2][found]]),
+        if ((member(k,abs_hf[1]))) then found:found+1,
+        if (not(member(k,abs_hf[1]))) then neu2:append(neu2,[neu2[k-lmin(abs_hf[1])]])
+    ],  
+    abs_hf:[neu1,neu2],
+    wxdraw2d(
+        xrange=[lmin(abs_hf[1])-1,lmax(abs_hf[1])+1], 
+        yrange=[lmin(abs_hf[2])-1,lmax(abs_hf[2])+1], 
+        xaxis=true, 
+        yaxis=true, 
+        grid=true, 
+        xtics=1, 
+        ytics=10,
+        title = "Kommulative relative Haeufigkeit",
+        points_joined = impulses,
+        color=dark-violet,
+        line_width=10,
+        points(abs_hf[1],abs_hf[2]),
+        xlabel="Groesse", ylabel="Prozente"
+        )
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Zeichnen der Kommulativen relativen Haeufigkeit fuer Kondensatoren
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+paint_KUM_REL_HFG(angabe);
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$
