@@ -1,0 +1,176 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 12.04.0 ] */
+
+/* [wxMaxima: title   start ]
+Siegel Hannah 
+Mitarbeitsueberpruefung 2013-10-03
+   [wxMaxima: title   end   ] */
+
+/* [wxMaxima: section start ]
+Funktionen in mehreren Variablen
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Unter einer Funktion in z=(x,y) versteht man die Funktionsgleichung einer Funktion in 2 unabhaengigen Variablen x und y.
+( fuer jeden x und y Wert wird genau ein z Wert zugeordnet!)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: subsect start ]
+Partielle Ableitungen
+    
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+bei einer Partiellen Ableitung wird eine Funktion f(x,y) nach einer Variable differenziert. 
+Hierbei wird die andere Variable vorruebergehend als Konstante betrachtet
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+1. Angabe: 
+Funktion f(x,y):=(-1/(x-1))+(2/(y+2))-x+2*y+1;
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Aufstellen der Funktion
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+f:(-1/(x-1))+(2/(y+2))-x+2*y+1;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Rein partielle Ableitungen:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+fx: diff(f,x,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+fy: diff(f,y,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+fxx: diff(fx,x,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+fyy: diff(fy,y,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Gemischte Ableitungen:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+fxy: diff(fx,y,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+fyx: diff(fy,x,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: section start ]
+Extremwertaufgaben
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: comment start ]
+Im 2-Dimensionalen Raum kann man die Extremwerte (Hochpunkt und Tiefpunkt) ueber eine waagrechte Tangente finden. 
+Im 3-Dimensionalen Raum sind die zur xy Ebene parallele Tangenzialebenen zwar lokale Maxima (auch Quellen) oder Minima (auch Senken), koennten aber auch einfache Sattelpunkte sein! 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: subsect start ]
+Notwendige Bedingung
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Die Notwendige Bedingung findet die Koordinaten wo die Tangenzialebene parallel zur xy Ebene ist. 
+Dies tritt ein wenn fx=0 und fy=0 . 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+erg_notwendige: solve ([fx=0,fy=0],[x,y]),realonly:true;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Hinreichende Bedingungen
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Um nun von den erhaltenen Punkten herauszufinden ob es sich um ein Minima, ein Maxima oder einen Sattelpunkt handelt, 
+muss man die Hinreichenden Bedingungen verwenden.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Bei einer Quelle (Maximum) muessen die Bedingungen
+    fxx*fyy-fxy^2>0
+    fxx<0 
+erfuellt sein.
+
+Bei einer Senke die Bedingungen
+    fxx*fyy-fxy^2>0
+    fxx>0
+erfuellt sein.
+
+Wenn:
+    fxx*fyy-fxy^2<0
+dann bedeutet es dass der erhaltene Punkt ein Sattelpunkt ist und somit kein Maxima/Minima.
+
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+fh:(fxx*fyy-(fxy*fxy));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+for i:0 step 1 while length(erg_notwendige)<i do erg_notwendige[i] : [(lhs(erg_notwendige[i][1])),(lhs(erg_notwendige[i][2]))];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Ueberpruefung aller Hinreichenden Bedingungen und Speicherung in Punkte (Pminimum, Pmaximum) in einer Schleife 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+for i:1 step 1 while length(erg_notwendige)>=i do [ 
+    if(subst(erg_notwendige[i],fh))>0 
+        then (if subst(erg_notwendige[i], fxx)>0
+            then Pminimum: [lhs(erg_notwendige[i])[1],lhs(erg_notwendige[i])[2],z=subst(erg_notwendige[i],f)] 
+            else Pmaximum: [lhs(erg_notwendige[i])[1],lhs(erg_notwendige[i])[2],z=subst(erg_notwendige[i],f)],f)
+ ];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Quelle und Senke:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+Pminimum;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+Pmaximum;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Zeichnen der Funktion
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+load(draw)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+wxdraw3d(
+explicit(f,x,-10,10,y,-10,10),
+color=red, 
+points ([map(rhs, Pmaximum), map(rhs, Pminimum)]),
+points_joined=true
+);
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

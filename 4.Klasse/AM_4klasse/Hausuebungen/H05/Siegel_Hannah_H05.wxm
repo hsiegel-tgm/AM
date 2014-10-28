@@ -1,0 +1,158 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 12.04.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+load(descriptive)$
+load(draw)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: title   start ]
+H05 - Hannah Siegel - Gaussche Fehlerfortpflanzung
+   [wxMaxima: title   end   ] */
+
+/* [wxMaxima: comment start ]
+gaussche Fehlerfortpflanzung: 
+Im grunde genommen kann man keine Messung ohne ungenauigkeiten gemacht werden.
+Die groesse der ungenauigkeit einer messung haengt von dem verwendeten mittel zur messung ab.
+Die ungenauigkeit ist ein funktionaler zusammenhang aus den verschiedenen einzelmessungen.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: section start ]
+Angabe
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: comment start ]
+Angabe (Formel)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+Angabe:V=((%pi*h^2)/3)*(3*r-h);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+einzelne Variablen (gegeben)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+hoe: 0.225;
+Vol: 3*10^-4;
+uHoe:300*10^-8;
+uVol:0.002;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: section start ]
+Gleichung loesen (Ergebniss finden)
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: comment start ]
+Die Gleichung umgeformt
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+gleichungUm:solve(Angabe,r);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+subst1:subst(Vol,V,gleichungUm)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+subst2:subst(hoe,h,subst1)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+erg:rhs((solve(subst2,r))[1])$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+ergebniss der Unbekannten:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+erg,numer;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: section start ]
+Ungenauigkeit finden
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: input   start ] */
+diff1:rhs((diff(gleichungUm,V,1))[1]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+diff2:rhs((diff(gleichungUm,h,1))[1]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+u1:(float(subst(Vol,V,(subst(hoe,h,diff1)))))*uHoe;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+u2:(float(subst(Vol,V,(subst(hoe,h,diff2)))))*uVol;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+ungenauigkeit:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+delta: abs(u1)+abs(u2);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: section start ]
+Ergebniss der Ungenauigkeit in Prozent
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: comment start ]
+ungenauigkeit in prozent:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+z:((100/erg)*delta),numer;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+ERGEBNISS:
+Der Radius bei den gegebenen groessen von V und h ist 0.076m +- 6.51*10^-4m oder  0.076m +- 0.84%
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: section start ]
+Grafische Darstellung
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: comment start ]
+ungenauigkeiten in prozent:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+t:(100/delta)*u1;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+g:(100/delta)*u2;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+list1: makelist(ungh,i,1,round(t))$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+list2: makelist(ungV,i,1,round(g))$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+listges:append(list1,list2)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+wxpiechart(listges, xrange=[-2,2], yrange=[-1,1], xtics=false, ytics=false, title="ungenauigkeit von V und h");
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+wxbarsplot(listges, ylabel="prozente", xrange=[0.5,3.5],yrange=[0,100], xtics=false, title="ungenauigkeit von V und h");
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

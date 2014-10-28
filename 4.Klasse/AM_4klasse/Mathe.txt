@@ -1,0 +1,24 @@
+PF161
+
+DGLs 1. ORDNUNG
+
+Richtungsfeld
+7 Punkte (Variation der Konstanten und Loesungsansatz)
+Kunge Rutta
+
+PF2 62
+
+DGLS 2. Orundnung
+7 Punkte Ansatz
+Nystroem
+Schwingungen
+Raube 
+
+PF12
+
+Wirtschaftsmathematik
+folgen und Reihen
+Fourrier
+
+FEHLT
+Eulersche identitaet

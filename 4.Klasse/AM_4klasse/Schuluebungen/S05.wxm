@@ -1,0 +1,89 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 12.04.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Hannah Siegel, 4yhit
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Angabe:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+Volumen:V=((%pi*h^2)/3)*(3*r-h);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Die Gleichung umgeformt
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+gleichungUm:solve(Volumen,r);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+subst1:subst(3*10^-4,V,nr)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+subst2:subst(0.225,h,subst1)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+erg:solve(subst2,r);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+erg;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+delta r
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+diff1:diff(gleichungUm,V,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+diff2:diff(gleichungUm,h,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+x:float((1/(%pi*(0.225^2))));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+u1:x*(300*10^-8);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+drdh: diff(nr,h,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+erg1:subst(3*10^-4,V,rhs(drdh[1]));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+erg2:subst(0.225,h,erg1),numer;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+u2:erg2*0.002;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+deltar: u1+u2;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Fehlt noch: das tatsaechliche ergebniss + charts
+   [wxMaxima: comment end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

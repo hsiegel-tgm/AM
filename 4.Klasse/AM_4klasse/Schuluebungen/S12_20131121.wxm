@@ -1,0 +1,141 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 12.04.0 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: title   start ]
+Hannah Siegel - S012
+   [wxMaxima: title   end   ] */
+
+/* [wxMaxima: section start ]
+Angabe:
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: input   start ] */
+dgl: 'diff(y,x,1) +2*y = 4*x;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+NB:[x=0,y=3];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: section start ]
+Trennung der Variablen (1)
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: comment start ]
+Zur bestimmung von yh ist der standartbefehl ode2
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Der ' von diff ist nicht ausgerechnet -  warum!! --> Hausuebung hinein :)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+yNull:lhs(dgl)=0;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+yH: ode2(yNull,y,x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: section start ]
+Variation der Konstanten (2)
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: comment start ]
+subst 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+yA: c(x) *%e^(-2*x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Differezieren
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+yA_abl: diff(yA,x,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+eingesetzt:yA_abl + 2*yA =4*x;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+cstrich:solve(eingesetzt,(diff(c(x),x)));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+integr:rhs((integrate(cstrich,x,y))[1]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+funktion suchen fuer c8
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+a fuer b in c bei subst
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+integr2:subst(0,%c13,integr);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+yPF:subst(integr2, c(x), yA);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: section start ]
+yG=yH+yP
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: input   start ] */
+yG:y=(rhs(yH)+yPF);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+y einsetzen
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+s1:subst(rhs(NB[2]),y,yG);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+s2:subst(rhs(NB[1]),x,s1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+c:solve(s2,%c);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+yG;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+das c einsetzten!!
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+erg:subst(4,%c,yG);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: section start ]
+Graphik
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: input   start ] */
+list:[[rhs(NB[1]),rhs(NB[2])]]$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([rhs(erg),[discrete,list],4*x],[x,-0.5,10],[y,0,30],[style,[lines],[points,1,2,4],[lines]],[legend,"yg","NB","s(x)"])$
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

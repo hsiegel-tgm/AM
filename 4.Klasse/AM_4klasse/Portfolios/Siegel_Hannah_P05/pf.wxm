@@ -1,0 +1,636 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 12.04.0 ] */
+
+/* [wxMaxima: title   start ]
+Portfolio Hannah Siegel
+   [wxMaxima: title   end   ] */
+
+/* [wxMaxima: section start ]
+Funktionen in mehreren Variablen
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Unter einer Funktion in z=(x,y) versteht man die Funktionsgleichung einer Funktion in 2 unabhaengigen Variablen x und y.
+( fuer jeden x und y Wert wird genau ein z Wert zugeordnet!)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: subsect start ]
+Partielle Ableitungen
+    
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: comment start ]
+bei einer Partiellen Ableitung wird eine Funktion f(x,y) nach einer Variable differenziert. 
+Hierbei wird die andere Variable vorruebergehend als Konstante betrachtet
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+1. Angabe: 
+Funktion f(x,y):=x^3+x^2*y+y^2*x-y^3-6*x+4;
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Aufstellen der Funktion
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+f:x^3+x^2*y+y^2*x-y^3-6*x+4;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Rein partielle Ableitungen:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+fx: diff(f,x,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+fy: diff(f,y,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+fxx: diff(fx,x,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+fyy: diff(fy,y,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Gemischte Ableitungen:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+fxy: diff(fx,y,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+fyx: diff(fy,x,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: section start ]
+Extremwertaufgaben
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: comment start ]
+Im 2-Dimensionalen Raum kann man die Extremwerte (Hochpunkt und Tiefpunkt) ueber eine waagrechte Tangente finden. 
+Im 3-Dimensionalen Raum sind die zur xy Ebene parallele Tangenzialebenen zwar lokale Maxima (auch Quellen) oder Minima (auch Senken), koennten aber auch einfache Sattelpunkte sein! 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: subsect start ]
+Notwendige Bedingung
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Die Notwendige Bedingung findet die Koordinaten wo die Tangenzialebene parallel zur xy Ebene ist. 
+Dies tritt ein wenn fx=0 und fy=0 . 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+erg_notwendige: solve ([fx=0,fy=0],[x,y]),realonly:true;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Hinreichende Bedingungen
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: comment start ]
+Um nun von den erhaltenen Punkten herauszufinden ob es sich um ein Minima, ein Maxima oder einen Sattelpunkt handelt, 
+muss man die Hinreichenden Bedingungen verwenden.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Bei einer Quelle (Maximum) muessen die Bedingungen
+    fxx*fyy-fxy^2>0
+    fxx<0 
+erfuellt sein.
+Bei einer Senke die Bedingungen
+    fxx*fyy-fxy^2>0
+    fxx>0
+erfuellt sein.
+Wenn:
+    fxx*fyy-fxy^2<0
+dann bedeutet es dass der erhaltene Punkt ein Sattelpunkt ist und somit kein Maxima/Minima.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+fh:(fxx*fyy-(fxy*fxy));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+for i:0 step 1 while length(erg_notwendige)<i do erg_notwendige[i] : [(lhs(erg_notwendige[i][1])),(lhs(erg_notwendige[i][2]))];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Ueberpruefung aller Hinreichenden Bedingungen und Speicherung in Punkte (Pminimum, Pmaximum) in einer Schleife 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+for i:1 step 1 while length(erg_notwendige)>=i do [ 
+    if(subst(erg_notwendige[i],fh))>0 
+        then (if subst(erg_notwendige[i], fxx)>0
+            then Pminimum: [lhs(erg_notwendige[i])[1],lhs(erg_notwendige[i])[2],z=subst(erg_notwendige[i],f)] 
+            else Pmaximum: [lhs(erg_notwendige[i])[1],lhs(erg_notwendige[i])[2],z=subst(erg_notwendige[i],f)],f)
+ ];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Quelle und Senke:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+Pminimum;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+Pmaximum;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: subsect start ]
+Graphik
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: comment start ]
+Zeichnen der Funktion
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+load(draw)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+wxdraw3d(
+explicit(f,x,-10,10,y,-10,10),
+color=red, 
+points ([map(rhs, Pmaximum), map(rhs, Pminimum)]),
+points_joined=true
+);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: section start ]
+Gaussche Fehlerfortpflanzungsrechnung
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: comment start ]
+!!!!!!!!!!!!!!!!!!!!!!!! passt nicht????!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+load(descriptive)$
+load(draw)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+gaussche Fehlerfortpflanzung: 
+Im grunde genommen kann man keine Messung ohne ungenauigkeiten gemacht werden.
+Die groesse der ungenauigkeit einer messung haengt von dem verwendeten mittel zur messung ab.
+Die ungenauigkeit ist ein funktionaler zusammenhang aus den verschiedenen einzelmessungen.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+theorie1:-3*x^2+5*x$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Graphiken zur Gauschen Fehlerfortpflanzung
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: comment start ]
+erste Graphik: deltax(rot) und das dazugehoerige deltay(blau) bei einer Quadratischen funktion
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([theorie1,[discrete,[0.6,0.6],[subst(0.6,x,theorie1),0]],
+            [discrete,[0.4,0.4],[subst(0.4,x,theorie1),0]],
+            [discrete,[0,0.4],[subst(0.4,x,theorie1),subst(0.4,x,theorie1)]],
+            [discrete,[0,0.6],[subst(0.6,x,theorie1),subst(0.6,x,theorie1)]],
+            [discrete,[0.4,0.6],[0,0]],
+            [discrete,[0,0],[subst(0.6,x,theorie1),subst(0.4,x,theorie1)]]],
+            [x,0,1.2],[y,0,2.2],
+            [legend,"","","","","","deltax","delaty"],
+            [style,[],[linespoints,1,0,5],[linespoints,1,0,5],[linespoints,1,0,5],[linespoints,1,0,5],[linespoints,4,0,2],[linespoints,4,0,1]]
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+theorie2:x/2;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: subsect start ]
+Einfluss von deltaX und Steigung
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: comment start ]
+Deltay haengt von der groesse des delta x und der Steigung ab:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+deltax=0.5
+Steigung= 1/2
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([theorie2,[discrete,[2.5,2.5],[subst(2.5,x,theorie2),0]],
+            [discrete,[3,3],[subst(3,x,theorie2),0]],
+            [discrete,[0,3],[subst(3,x,theorie2),subst(3,x,theorie2)]],
+            [discrete,[0,2.5],[subst(2.5,x,theorie2),subst(2.5,x,theorie2)]],
+            [discrete,[0,0],[subst(2.5,x,theorie2),subst(3,x,theorie2)]],
+            [discrete,[2.5,3],[0,0]]],
+            [x,0,3.5],[y,0,3.5],
+            [legend,"","","","","","deltay","delatx"],
+            [style,[],[linespoints,1,0,5],[linespoints,1,0,5],[linespoints,1,0,5],[linespoints,1,0,5],[linespoints,4,0,2],[linespoints,4,0,1]])$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Groesseres deltax -> groessseres deltay
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Deltax = 1 
+Steigung = 1/2
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([theorie2,[discrete,[2,2],[subst(2,x,theorie2),0]],
+            [discrete,[3,3],[subst(3,x,theorie2),0]],
+            [discrete,[0,3],[subst(3,x,theorie2),subst(3,x,theorie2)]],
+            [discrete,[0,2],[subst(2,x,theorie2),subst(2,x,theorie2)]],
+            [discrete,[0,0],[subst(2,x,theorie2),subst(3,x,theorie2)]],
+            [discrete,[2,3],[0,0]]],
+            [x,0,3.5],[y,0,3.5],
+            [legend,"","","","","","deltay","delatx"],
+            [style,[],[linespoints,1,0,5],[linespoints,1,0,5],[linespoints,1,0,5],[linespoints,1,0,5],[linespoints,4,0,2],[linespoints,4,0,1]])$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+theorie3:x;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Groessere Steigung -> groesseres deltay
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Steigung = 2
+deltax=0.5
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([theorie3,[discrete,[2.5,2.5],[subst(2.5,x,theorie3),0]],
+            [discrete,[3,3],[subst(3,x,theorie3),0]],
+            [discrete,[0,3],[subst(3,x,theorie3),subst(3,x,theorie3)]],
+            [discrete,[0,2.5],[subst(2.5,x,theorie3),subst(2.5,x,theorie3)]],
+            [discrete,[0,0],[subst(2.5,x,theorie3),subst(3,x,theorie3)]],
+            [discrete,[2.5,3],[0,0]]],
+            [x,0,3.5],[y,0,3.5],
+            [legend,"","","","","","deltay","delatx"],
+            [style,[],[linespoints,1,0,5],[linespoints,1,0,5],[linespoints,1,0,5],[linespoints,1,0,5],[linespoints,4,0,2],[linespoints,4,0,1]])$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: input   start ] */
+Angabe:V=((%pi*h^2)/3)*(3*r-h);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Gleichung loesen (Ergebniss finden)
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Gleichung nach unbekannter variable umformen
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+gleichungUm:solve(Angabe,r);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Angabe der Werte
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+liste:[h=0.225,fh=300*10^-8,V=3*10^-4,fv=0.002];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+erbniss der Rechnung:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+erg:subst(liste,rhs(gleichungUm[1])),numer;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Finden der Ungebauigkeit:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+u1:abs(subst(liste,diff(rhs(gleichungUm[1]),h,1))*rhs(liste[2])),numer;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+rhs(liste[4]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+u2:abs(subst(liste,diff(rhs(gleichungUm[1]),V,1))*rhs(liste[4])),numer;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+delta: (u1+u2),numer;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Ergebniss der Ungenauigkeit in Prozent
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: comment start ]
+ungenauigkeit in prozent:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+z:((100/erg)*delta),numer;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+ERGEBNISS:
+Der Radius bei den gegebenen groessen von V und h ist 0.076m +- 6.51*10^-4m oder  0.076m +- 0.84%
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: subsect start ]
+Grafische Darstellung
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: comment start ]
+ungenauigkeiten in prozent:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+t:(100/delta)*u1;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+g:(100/delta)*u2;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+list1: makelist(ungh,i,1,round(t))$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+list2: makelist(ungV,i,1,round(g))$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+listges:append(list1,list2)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+wxpiechart(listges, xrange=[-2,2], yrange=[-1,1], xtics=false, ytics=false, title="ungenauigkeit von V und h");
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+wxbarsplot(listges, ylabel="prozente", xrange=[0.5,3.5],yrange=[0,100], xtics=false, title="ungenauigkeit von V und h");
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: section start ]
+Regressionsrechnung - einem Block fuer alle Gleichungen - funktioniert nicht..
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Regressionsbloecke
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: input   start ] */
+schleife(list,w,g,namespace,c,d):=block(
+    name[namespace]:
+    a*sum((list[i][1])^((w*2)-(g)), i, 1, length(list))
+    +b*sum((list[i][1])^((w*2)-g-1), i, 1, length(list))
+    +c*sum((list[i][1])^((w*2)-g-2), i, 1, length(list))
+    +d*sum((list[i][1])^((w*2)-g-3), i, 1, length(list))
+    =sum((list[i][1])^(w-g)*(list[i][2]), i, 1, length(list))
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+regression(list, w):=block(
+    if(w<=2) then d:0,
+    if(w<=1) then c:0,
+   for j:0 step 1 while w+1>(j) do [ 
+    schleife(list,w,j,j,c,d)
+ ],
+if(w=3) then erg:solve([name[0],name[1],name[2],name[3]],[a,b,c,d])[1],
+if(w=2) then erg:solve([name[0],name[1],name[2]],[a,b,c])[1],
+if(w=1) then erg:solve([name[0],name[1]],[a,b])[1],
+if(w=1) then g=subst(rhs(erg[2]),b,subst(rhs(erg[1]),a,a*x+b))
+else if (w=2) then g=subst(rhs(erg[3]),c,subst(rhs(erg[2]),b,subst(rhs(erg[1]),a,a*x*x+b*x+c)))
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Lineare Regression
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: comment start ]
+Angabe(liste)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+list:[[2,1],[3,3],[5,4]];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+regression(list,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: subsect start ]
+Quadratische Regression
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: input   start ] */
+list:[[1,1],[2,3],[4,4],[5,3],[6,4]];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+regression(list,2);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Kubische Regression
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: input   start ] */
+list:[[1,1],[2,3],[4,4],[5,3],[6,4]];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+regression(list,3);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Aus irgendeinen Grund funktioniert der Solve befehl in Maxima mit 4 unbekannten nicht..
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Regressionsbloecke (ohne solve)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+schleife(list,w,g,namespace,c,d):=block(
+    name[namespace]:
+    a*sum((list[i][1])^((w*2)-(g)), i, 1, length(list))
+    +b*sum((list[i][1])^((w*2)-g-1), i, 1, length(list))
+    +c*sum((list[i][1])^((w*2)-g-2), i, 1, length(list))
+    +d*sum((list[i][1])^((w*2)-g-3), i, 1, length(list))
+    =sum((list[i][1])^(w-g)*(list[i][2]), i, 1, length(list))
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+regression(list, w):=block(
+    if(w<=2) then d:0,
+    if(w<=1) then c:0,
+   for j:0 step 1 while w+1>(j) do [ 
+    schleife(list,w,j,j,c,d)
+ ], loesung:solve([name[0],name[1],name[2],name[3]],[a,b,c,d]),
+    return (rhs(loesung[1][1])*x^3+rhs(loesung[1][2])*x^2+rhs(loesung[1][3])*x+rhs(loesung[1][4]))
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+kubische_regression(P):=block(
+    I: a*sum( P[i][1]^6, i, 1, length(P)) + b*sum(P[i][1]^5,i,1, length(P)) + c*sum(P[i][1]^4,i,1, length(P)) + d*sum(P[i][1]^3,i,1, length(P))= sum(P[i][1]^3*P[i][2],i,1,length(P)),
+    II:a*sum( P[i][1]^5, i, 1, length(P)) + b*sum(P[i][1]^4,i,1, length(P)) + c*sum(P[i][1]^3,i,1, length(P)) + d*sum(P[i][1]^2,i,1, length(P))= sum(P[i][1]^2*P[i][2],i,1,length(P)),
+    III: a*sum( P[i][1]^4, i, 1, length(P)) + b*sum(P[i][1]^3,i,1, length(P)) + c*sum(P[i][1]^2,i,1, length(P)) + d*sum(P[i][1],i,1, length(P))= sum(P[i][1]*P[i][2],i,1,length(P)),
+    IV: a*sum( P[i][1]^3, i, 1, length(P)) + b*sum(P[i][1]^2,i,1, length(P)) + c*sum(P[i][1],i,1, length(P)) + d*length(P)= sum(P[i][2],i,1,length(P)),
+    loesung:solve([I,II,III,IV],[a,b,c,d]),
+    return (rhs(loesung[1][1])*x^3+rhs(loesung[1][2])*x^2+rhs(loesung[1][3])*x+rhs(loesung[1][4]))
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+liste: [[1,1],[2,3],[4,4],[5,3],[6,4]];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+kubische_regression(liste);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+I;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+II;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+III;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+IV;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Richtige Summenformel!
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Konkretes Beispiel:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+list: [[1,1],[2,3],[4,4],[5,3],[6,4]];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+regression(list,3);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+name[0];
+name[1];
+name[2];
+name[3];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+res:solve([name[0],name[1],name[2]],[a,b,c])[1];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+gle2:subst(rhs(res[1]),a,name[3]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+gle3:subst(rhs(res[2]),b,gle2);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+gle4:subst(rhs(res[3]),c,gle3),simp;
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

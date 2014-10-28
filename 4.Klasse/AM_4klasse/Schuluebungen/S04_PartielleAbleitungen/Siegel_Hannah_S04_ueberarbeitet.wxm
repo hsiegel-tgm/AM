@@ -1,0 +1,134 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 12.04.0 ] */
+
+/* [wxMaxima: comment start ]
+Siegel Hannah
+4YHIT
+2013-09-28
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: title   start ]
+S05 - Funktionen in mehreren Variablen und Extremwertberechnung
+   [wxMaxima: title   end   ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: section start ]
+Funktionen in mehreren Variablen
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: comment start ]
+Unter einer Funktion in z=(x,y) versteht man die Funktionsgleichung einer Funktion in 2 unabhaengigen Variablen x und y.
+( fuer jeden x und y Wert wird genau ein z Wert zugeordnet!)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: subsect start ]
+Partielle Ableitungen
+    
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+bei einer Partiellen Ableitung wird eine Funktion f(x,y) nach einer Variable differenziert. 
+Hierbei wird die andere Konstante vorruebergehend als Konstante betrachtet
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Angabe: 
+Funktion f(x,y):=x^3+y^3-6*x*y;
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Aufstellen der Funktion
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+f:x^3+y^3-6*x*y;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Zeichnung der Funktion
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot3d(f, [x,0,3], [y,-1.8,2], [gnuplot_preamble, "set pm3d at s; unset surf; unset colorbox"])$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Partielle Ableitung
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+differenzierung aller methoden nach (fx, fy, fxy, fyx, fxx, fyy)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+fx: diff(f,x,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+fy: diff(f,y,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+fxy: diff(fx,y,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+fyx: diff(fy,x,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+fxx: diff(fx,x,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+fyy: diff(fy,y,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Notwendige Bedingung
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: input   start ] */
+notwendige: solve ([fx=0,fy=0],[x,y]),realonly:true;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Hinreichende Bedingungen
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Die Hinreichende bedingungen sind:
+
+fxx*fyy-fxy^2>0
+wenn ja dann:
+fxx>0 - minimum
+fxx<0 - maximum
+
+
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+fh:(fxx*fyy-(fxy*fxy));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+if subst(lhs(notwendige[1]), fh)>0 then if subst(lhs(notwendige[1]), fxx)>0 then minimum: subst(lhs(notwendige[1]),f) else maximum: subst(lhs(notwendige[1]),f) else false;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+if subst(lhs(notwendige[2]), fh)>0 then if subst(lhs(notwendige[2]), fxx)>0 then minimum: subst(lhs(notwendige[2]),f) else maximum: subst(lhs(notwendige[1]),f) else false;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+P:[lhs(notwendige[1]),[subst(lhs(notwendige[1]),f)]];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+P:[[2,2,-8]];
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$
