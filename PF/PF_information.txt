@@ -1,0 +1,18 @@
+PF 01
+
+Cardansche Formel
+Regula Falsi
+Bisection (Intervallhalbierung)
+Newton'sche Näherungsverfahren
+
+Feedback: maturareif
+
+PF 02
+
+Differentialquozient und Differenzenquozient 
+Ableitung elementarer Funktionen, Ableitungsregeln
+Kurvendiskussion
+Umgekehrte Kurvendiskussion
+Extremwertaufgaben 
+
+Feedback: Extremwertbsp.: Umsetzung in Maxima fehlt. Rest ausgezeichnet.
