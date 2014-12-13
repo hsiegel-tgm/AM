@@ -185,162 +185,255 @@ Die Obersumme ist ein numerisches Naeherungsverfahren zur Berechnung der Fläche 
 Das Verfahren unterteilt die Flaeche unter der Funktion in Teilflaechen (Rechtecke).
 Bei der Obersumme werden die Flaechen im gegenteil zur Untersumme ober der Funktion abgebildet.
 
-Das Ergenniss ist gedoch immer etwas groesser als die eigentliche Flaeche. Daher spricht man von einem Naeherungsverfahren.
+Das Ergenniss ist daher immer etwas groesser als die eigentliche Flaeche. Daher spricht man von einem Naeherungsverfahren.
 Trotzdem naehert die Flaeche immer mehr der des bestimmten Integrals, je mehr Unterteilungen getroffen werden.
    [wxMaxima: comment end   ] */
 
 /* [wxMaxima: input   start ] */
 f:log(x)$
-a:1$
-b:10$
+a:2$
+b:5$
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: comment start ]
-Als Grenzen wähle ich 1 -> 10.
+Obersumme wo n = 3
    [wxMaxima: comment end   ] */
 
 /* [wxMaxima: input   start ] */
-a:1$
-b:10$
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-Um die Grenzen besser darzustellen, was für dieses Beispiel wichtig ist, brauche ich 2 senkrechte
-Striche, bzw. 4 Punkte.
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-g1:[[a,0],[a,3]];
-g2:[[b,0],[b,3]];
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-Für die Teilflächen ist es praktischer, wenn man sich 2 Hilfvariablen definiert:
-h: (b-a)/2+a ist die Hälfte beider Grenzen
-v: (b-a)/4+a ist das Viertel zwischen beider Grenzen
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-h:((b-a)/2)+a;
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: input   start ] */
-v:((b-a)/4)+a;
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-Eintragen der Teilflächen in eine Liste
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-list:[[a,f(v)],
-    [v,f(v)],[v,0],[v,f(h)],
-    [h,f(h)],[h,0],[h,f(3*v-(2*a))],[3*v-(2*a),f(3*v-(2*a))],
-    [3*v-(2*a),0],[3*v-(2*a),f(b)],[b,f(b)]]$
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-Zeichnen der Funktion und der Teilflächen
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-wxplot2d([f(x),[discrete, g1],[discrete, g2],[discrete, list]],
-    [x,0,10.5], [y,-0.1,3],
-    [style,[lines,1,1],[lines,1,3],lines,[lines,1,2]],
-    [legend, "f(x)","untere Grenze","obere Grenze","Teilflaechen"]);
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: subsect start ]
-Modul
-   [wxMaxima: subsect end   ] */
-
-/* [wxMaxima: fold    start ] */
-
-/* [wxMaxima: input   start ] */
-obersumme(a,b,n):= block(
-    ((b-a)/n)*sum(f(a+i*((b-a)/n)),i,1,n)
-);
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: fold    end   ] */
-
-/* [wxMaxima: subsect start ]
-Anwendung der Obersumme
-   [wxMaxima: subsect end   ] */
-
-/* [wxMaxima: fold    start ] */
-
-/* [wxMaxima: input   start ] */
-kill(all);
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-Der Block der Obersumme wird nocheinmal definiert
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-obersumme(a,b,n):=block(
-    ((b-a)/n)*sum(f(a+i*((b-a)/n)),i,1,n)
+wxdraw2d(yrange = [0,2],
+         xrange = [0.5,6],
+         fill_color  = gray90,
+         filled_func = true,
+         explicit(f,x,a,b),
+         fill_color  = pink,
+         explicit(subst(3,x,f),x,2,3),
+         fill_color  = plum,
+         explicit(subst(4,x,f),x,3,4),
+         fill_color  = pink,
+         explicit(subst(5,x,f),x,4,5),
+         color = dark-magenta,
+         filled_func = false,
+         line_width=3,
+         explicit(f,x,0,20),
+         points_joined=true,
+         line_width=2,
+         point_size=0,
+         color=black,
+         points([2,2],[-0.5,2]),
+         points([5,5],[-0.5,2])
 )$
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: comment start ]
-Definieren der Funktion
+Obersumme wo n = 6
    [wxMaxima: comment end   ] */
 
 /* [wxMaxima: input   start ] */
-f(x):= -log(x);
+wxdraw2d(yrange = [0,2],
+         xrange = [0.5,6],
+         fill_color  = gray90,
+         filled_func = true,
+         explicit(f,x,a,b),
+         filled_func = true,
+         fill_color  = pink,
+         explicit(subst(2.5,x,f),x,2,2.5),
+         fill_color  = plum,
+         explicit(subst(3,x,f),x,2.5,3),
+         fill_color  = pink,
+         explicit(subst(3.5,x,f),x,3,3.5),
+         fill_color  = plum,
+         explicit(subst(4,x,f),x,3.5,4),
+         fill_color  = pink,
+         explicit(subst(4.5,x,f),x,4,4.5),
+         fill_color  = plum,
+         explicit(subst(5,x,f),x,4.5,5),
+         color = dark-magenta,
+         filled_func = false,
+         line_width=3,
+         explicit(f,x,0,20),
+         points_joined=true,
+         line_width=2,
+         point_size=0,
+         color=black,
+         points([2,2],[-0.5,2]),
+         points([5,5],[-0.5,2])
+)$
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: comment start ]
-Skizze
+Block fuer die obersumme
    [wxMaxima: comment end   ] */
 
 /* [wxMaxima: input   start ] */
-wxplot2d([f(x)], [x,0,5], [y,-2,5])$
+obersumme(f,a,b,n):= block(
+    weite:(b-a)/n,
+    sum:0,
+    for i:1 while i<= n do [
+        point: a + weite*i,
+        hoehe: subst(point,x,f),
+        sum: sum + (weite * hoehe)
+    ],
+    return(float(sum))  
+)$
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: comment start ]
-Grenzen a und b
-1 -> 5
+Normales Integrieren (Richtiges Ergebniss)
    [wxMaxima: comment end   ] */
 
 /* [wxMaxima: input   start ] */
-a: 1;
-b: 5;
+integrate(f,x,a,b),numer;
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: comment start ]
-Zum Vergleich wird f(x) mittels integrate() integriert
+Anwenden des Blockes
    [wxMaxima: comment end   ] */
 
 /* [wxMaxima: input   start ] */
-integrate(f(x),x,a,b),numer;
+obersumme(f,a,b,6);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+obersumme(f,a,b,25);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+obersumme(f,a,b,1000);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: comment start ]
-Berrechnen mittels Obersumme
-Je öfter sie durchgeführt wird, umso kleiner wird die Differenz des Ergebnises von 
-integrate() und der Obersumme.
+Desto groesser n, desto naeher ist die obersumme am richtigem Ergebniss, jedoch immer groesser als das eigentliche.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: subsect start ]
+Untersumme
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Die Untersumme ist ein numerisches Naeherungsverfahren zur Berechnung der Fläche einer Funktion zwischen zwei Grenzen.
+Das Verfahren unterteilt die Flaeche unter der Funktion in Teilflaechen (Rechtecke).
+
+Bei der Untersumme werden die Flaechen im gegenteil zur Obersumme unter der Funktion abgebildet.
+
+Das Ergebniss ist daher immer etwas kleiner als die eigentliche Flaeche. Daher spricht man von einem Naeherungsverfahren.
+Trotzdem naehert die Flaeche immer mehr der des bestimmten Integrals, je mehr Unterteilungen getroffen werden.
    [wxMaxima: comment end   ] */
 
 /* [wxMaxima: input   start ] */
-obersumme(a,b,5),numer;
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: input   start ] */
-obersumme(a,b,25),numer;
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: input   start ] */
-obersumme(a,b,1000),numer;
+f:log(x)$
+a:2$
+b:5$
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: comment start ]
-Wie man hier erkennen kann, sind die Ergebnise der Obersumme immer größer als das Ergebnis von integrate().
+Untersumme wo n = 3
    [wxMaxima: comment end   ] */
 
-/* [wxMaxima: fold    end   ] */
+/* [wxMaxima: input   start ] */
+wxdraw2d(yrange = [0,2],
+         xrange = [0.5,6],
+         fill_color  = gray90,
+         filled_func = true,
+         explicit(f,x,a,b),
+         fill_color  = pink,
+         explicit(subst(2,x,f),x,2,3),
+         fill_color  = plum,
+         explicit(subst(3,x,f),x,3,4),
+         fill_color  = pink,
+         explicit(subst(4,x,f),x,4,5),
+         color = dark-magenta,
+         filled_func = false,
+         line_width=3,
+         explicit(f,x,0,20),
+         points_joined=true,
+         line_width=2,
+         point_size=0,
+         color=black,
+         points([2,2],[-0.5,2]),
+         points([5,5],[-0.5,2])
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Untersumme wo n = 6
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxdraw2d(yrange = [0,2],
+         xrange = [0.5,6],
+         fill_color  = gray90,
+         filled_func = true,
+         explicit(f,x,a,b),
+         filled_func = true,
+         fill_color  = pink,
+         explicit(subst(2,x,f),x,2,2.5),
+         fill_color  = plum,
+         explicit(subst(2.5,x,f),x,2.5,3),
+         fill_color  = pink,
+         explicit(subst(3,x,f),x,3,3.5),
+         fill_color  = plum,
+         explicit(subst(3.5,x,f),x,3.5,4),
+         fill_color  = pink,
+         explicit(subst(4,x,f),x,4,4.5),
+         fill_color  = plum,
+         explicit(subst(4.5,x,f),x,4.5,5),
+         color = dark-magenta,
+         filled_func = false,
+         line_width=3,
+         explicit(f,x,0,20),
+         points_joined=true,
+         line_width=2,
+         point_size=0,
+         color=black,
+         points([2,2],[-0.5,2]),
+         points([5,5],[-0.5,2])
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Block fuer die obersumme
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+untersumme(f,a,b,n):= block(
+    weite:(b-a)/n,
+    sum:0,
+    for i:1 while i<= n do [
+        point: a + (weite*(i-1)),
+        hoehe: subst(point,x,f),
+        sum: sum + (weite * hoehe)
+    ],
+    return(float(sum))  
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Normales Integrieren (Richtiges Ergebniss)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+integrate(f,x,a,b),numer;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Anwenden des Blockes
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+untersumme(f,a,b,5);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+untersumme(f,a,b,25);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+untersumme(f,a,b,1000);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Desto groesser n, desto naeher ist die untersumme am richtigem Ergebniss, jedoch immer kleiner als das eigentliche.
+   [wxMaxima: comment end   ] */
 
 /* Maxima can't load/batch files which end with a comment! */
 "Created with wxMaxima"$
