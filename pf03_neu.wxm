@@ -17,14 +17,23 @@ Glossar
 /* [wxMaxima: comment start ]
 INTEGRATION
     Die Integration ist das Gegenteil der Differentialrechnung
+
 BESTIMMTES INTEGRAL
     Ein bestimmtes Integral ist ein Integral mit Grenzen.
     Es bestimmt die Flaeche unter einer Funktion zwischen zwei Grenzen. 
+    Bei einem bestimmten Integral ist die Lösung ein einfacher Zahlenwert.
+
+UNBESTIMMTES INTEGRAL
+    Ein unbestimmtes Integral ist ein Integral ohne Grenzen.
+    Es hat die Integrationskonstante c.
+    Bei einem unbestimmten Integral erhält man als Lösung eine Funktion, eine sogenannte Stammfunktion.
    [wxMaxima: comment end   ] */
 
 /* [wxMaxima: section start ]
 Bestimmtes und unbestimmtes Integral
    [wxMaxima: section end   ] */
+
+/* [wxMaxima: fold    start ] */
 
 /* [wxMaxima: comment start ]
 Unbestimmtes Integral
@@ -115,9 +124,13 @@ wxdraw2d(
 )$
 /* [wxMaxima: input   end   ] */
 
+/* [wxMaxima: fold    end   ] */
+
 /* [wxMaxima: section start ]
 Integration
    [wxMaxima: section end   ] */
+
+/* [wxMaxima: fold    start ] */
 
 /* [wxMaxima: subsect start ]
 Grundintegrale
@@ -151,6 +164,183 @@ integrate(sin(x),x);
 /* [wxMaxima: input   start ] */
 integrate(sin(x),x,0,%pi);
 /* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: section start ]
+Obersumme, Untersumme und die Verfahren von Kepler und Simpson
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: input   start ] */
+kill (allbut (rand_col,draw));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Obersumme
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Die Obersumme ist ein numerisches Naeherungsverfahren zur Berechnung der Fläche einer Funktion zwischen zwei Grenzen.
+
+Das Verfahren unterteilt die Flaeche unter der Funktion in Teilflaechen (Rechtecke).
+Bei der Obersumme werden die Flaechen im gegenteil zur Untersumme ober der Funktion abgebildet.
+
+Das Ergenniss ist gedoch immer etwas groesser als die eigentliche Flaeche. Daher spricht man von einem Naeherungsverfahren.
+Trotzdem naehert die Flaeche immer mehr der des bestimmten Integrals, je mehr Unterteilungen getroffen werden.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+f:log(x)$
+a:1$
+b:10$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Als Grenzen wähle ich 1 -> 10.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+a:1$
+b:10$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Um die Grenzen besser darzustellen, was für dieses Beispiel wichtig ist, brauche ich 2 senkrechte
+Striche, bzw. 4 Punkte.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+g1:[[a,0],[a,3]];
+g2:[[b,0],[b,3]];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Für die Teilflächen ist es praktischer, wenn man sich 2 Hilfvariablen definiert:
+h: (b-a)/2+a ist die Hälfte beider Grenzen
+v: (b-a)/4+a ist das Viertel zwischen beider Grenzen
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+h:((b-a)/2)+a;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+v:((b-a)/4)+a;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Eintragen der Teilflächen in eine Liste
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+list:[[a,f(v)],
+    [v,f(v)],[v,0],[v,f(h)],
+    [h,f(h)],[h,0],[h,f(3*v-(2*a))],[3*v-(2*a),f(3*v-(2*a))],
+    [3*v-(2*a),0],[3*v-(2*a),f(b)],[b,f(b)]]$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Zeichnen der Funktion und der Teilflächen
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([f(x),[discrete, g1],[discrete, g2],[discrete, list]],
+    [x,0,10.5], [y,-0.1,3],
+    [style,[lines,1,1],[lines,1,3],lines,[lines,1,2]],
+    [legend, "f(x)","untere Grenze","obere Grenze","Teilflaechen"]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Modul
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: input   start ] */
+obersumme(a,b,n):= block(
+    ((b-a)/n)*sum(f(a+i*((b-a)/n)),i,1,n)
+);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: subsect start ]
+Anwendung der Obersumme
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Der Block der Obersumme wird nocheinmal definiert
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+obersumme(a,b,n):=block(
+    ((b-a)/n)*sum(f(a+i*((b-a)/n)),i,1,n)
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Definieren der Funktion
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+f(x):= -log(x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Skizze
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([f(x)], [x,0,5], [y,-2,5])$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Grenzen a und b
+1 -> 5
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+a: 1;
+b: 5;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Zum Vergleich wird f(x) mittels integrate() integriert
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+integrate(f(x),x,a,b),numer;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Berrechnen mittels Obersumme
+Je öfter sie durchgeführt wird, umso kleiner wird die Differenz des Ergebnises von 
+integrate() und der Obersumme.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+obersumme(a,b,5),numer;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+obersumme(a,b,25),numer;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+obersumme(a,b,1000),numer;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Wie man hier erkennen kann, sind die Ergebnise der Obersumme immer größer als das Ergebnis von integrate().
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: fold    end   ] */
 
 /* Maxima can't load/batch files which end with a comment! */
 "Created with wxMaxima"$
