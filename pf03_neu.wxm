@@ -23,7 +23,9 @@ INTEGRATION
 BESTIMMTES INTEGRAL
     Ein bestimmtes Integral ist ein Integral mit Grenzen.
     Es bestimmt die Flaeche unter einer Funktion zwischen zwei Grenzen. 
-    Bei einem bestimmten Integral ist die Lösung ein einfacher Zahlenwert.
+    Bei einem bestimmten Integral ist die Lösung ein einfacher Zahlenwert.
+
+
 
 UNBESTIMMTES INTEGRAL
     Ein unbestimmtes Integral ist ein Integral ohne Grenzen.
@@ -175,8 +177,10 @@ integrate(sin(x),x,0,%pi);
 Obersumme, Untersumme und die Verfahren von Kepler und Simpson
    [wxMaxima: section end   ] */
 
+/* [wxMaxima: fold    start ] */
+
 /* [wxMaxima: input   start ] */
-kill (allbut (rand_col,draw));
+kill (allbut (draw));
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: subsect start ]
@@ -451,6 +455,8 @@ Desto groesser n, desto naeher ist die untersumme am richtigem Ergebniss, jedoch
 Kepler'sche Fassregel
    [wxMaxima: subsect end   ] */
 
+/* [wxMaxima: fold    start ] */
+
 /* [wxMaxima: comment start ]
 Die Keplersche Fassregel ist ein Verfahren zur numerischen Berechnung eines Integrales.
 Sie funktioniert, indem man eine Parabel ueber die Funktion gelegt wird und den Flaecheninhalt berechnet.
@@ -458,296 +464,11 @@ Sie funktioniert, indem man eine Parabel ueber die Funktion gelegt wird und den 
 
 (1) 2 Punkte auf der Funktion muessen gewaehlt werden
 (2) Errechnen des Mittelpunktes dieser zwei Punkte
-
-
-Man nimmt 2 Punkte auf der Funktion an und errechnet sich deren Mittepunkt.
-Nun hat man 3 Punkte.
-Durch diese 3 Punkte legt man eine Parabel.
-Unter der Parabel wird über das Integral die Fläche ausgerechnet.
-So erhält man wie gesagt einen ungenauen Näherrungswert des Integrals
-
-
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: subsect start ]
-Herleitung
-   [wxMaxima: subsect end   ] */
-
-/* [wxMaxima: fold    start ] */
-
-/* [wxMaxima: comment start ]
-Die Keplersche Fassregel ist ein Verfahren der numerischen Integration, bei dem eine Näherung zum Integral
-der Funktion f(x) im Intervall [a,b] berechnet wird, indem man sie durch eine Parabel annähert.
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-kill(all);
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-Für das Keplerverfahren wird eine quadratsche Funktion (Parabel) benötigt, um sich der Funktion
-annähern zu können.
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-y : u*x^2+ v*x + w;
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-Für das Keplerverfahren sind 3 Punkte notwendig, die beiden Grenzen einer Funktion (a und b),
-sowie der Mittelpunkt dieser (h).
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-h: (a+b)/2;
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-Alle Funktionsgleichungen für das zu lösende Gleichungssystem werden erstellt.
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-I: f(a) = u*a^2+v*a+w;
-II: f(h) = u*h^2+v*h+w;
-III: f(b) = u*b^2+v*b+w;
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-Durch die Lösung des Gleichungssystems erhält man die gesuchten Variablen u,v,w (als Liste);
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-lsg: solve([I,II,III],[u,v,w]);
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-Nun wird die vorher erhaltenene Lösung integiert. Die Parameter der Funktion sind die Funktion
-dx (x), sowie die untere (a) und obere Grenze (b). In das erhaltene Integral setze ich dannn die 
-Lösung ein.
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-integrate(y,x,a,b),lsg;
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-Das Ergebnis wird nun mithilfe von ratsim vereinfacht. % greift auf den letzten Ausdruck zu.
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-%, ratsimp;
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-Das Ergebnis wird faktorisiert.
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-kepler: factor(%);
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-Der Kepler wird für die zukünfitge Verwendung als Block bespeichert.
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-kepler(a,b) := block(
-    return(''kepler)
-);
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: fold    end   ] */
-
-/* [wxMaxima: subsect start ]
-Modul
-   [wxMaxima: subsect end   ] */
-
-/* [wxMaxima: fold    start ] */
-
-/* [wxMaxima: input   start ] */
-kill(all);
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: input   start ] */
-kepler(a,b):=block(
-    return((b-a)/6*(f(a)+4*f((a+b)/2)+f(b)))
-);
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: fold    end   ] */
-
-/* [wxMaxima: subsect start ]
-Grafische Erklärung
-   [wxMaxima: subsect end   ] */
-
-/* [wxMaxima: fold    start ] */
-
-/* [wxMaxima: comment start ]
-Für die grafische Erklärung benötige ich eine beliebige Funktion und eine Parabel:
-f(x) = Funktion, welcher ich mich annähern möchte
-p(x) = Grundfunktion einer Parabel
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-f(x):=3*x^3+5*x^2+x;
-p(x):=u*x^2+v*x+w;
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-Wir untersuchen die Funktion in den Grenzen -1 und 0
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-a:-1;
-b:0;
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-Nun werden f(x) und p(x) gleichgesetzt. Einmal mit beiden Grenzen (a+b) und einmal
-mit dem Mittelpunkt dieser Grenzen (a+b).
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-I:f(a)=u*a^2+v*a+w;
-II:f(b)=u*b^2+v*b+w;
-III:f((a+b)/2)=u*((a+b)/2)^2+v*((a+b)/2)+w;
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-Das Gleichungssystem wird mit den gerade erhaltenen Variablen u,v,w ausgerechnet.
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-L:solve([I,II,III],[u,v,w]);
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: input   start ] */
-l:ev(p(x),[L[1][1],L[1][2],L[1][3]]);
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-Nun erhalten wir die genaue Funktion der gesuchten Parabel.
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-p1(x):=l;
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-Die Zeichnung zeigt f(x) und p1(x), sowie beide Grenzen und den Mittelpunkt.
-Anscheinend sieht es so aus, als ob die Flächen unterhalb der Parbabel und der Funktion
-sehr unterschiedlich sind.
-Die beiden Flächen, welche sich zwischen den beiden Funktionen bildet, sind ähnlich groß.
-Da eine positiv und die andere negativ sind, heben sie sich quasi auf und so werden
-die ähnlich großen Flächen sichtbar.
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-wxplot2d(
-    [f(x),p1(x),[discrete,[[a,f(a)]]],[discrete, [[a,0],[a,f(a)]]],[discrete,[[b,f(b)]]],[discrete, [[b,0],[b,f(b)]]],[discrete,[[(a+b)/2,f((a+b)/2)]]]], 
-    [x,-1.3,0.2], [y,-0.1,1],
-    [style,lines,lines,[points,3,3,2],[lines,1,3],[points,3,2,2],[lines,1,2],points],
-    [legend, "f(x)","p(x)","a","a","b","b","(a+b)/2"]);
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: fold    end   ] */
-
-/* [wxMaxima: subsect start ]
-Anwendung der Regel
-   [wxMaxima: subsect end   ] */
-
-/* [wxMaxima: fold    start ] */
-
-/* [wxMaxima: input   start ] */
-kill(all);
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: input   start ] */
-kepler(a,b):=block(
-    return((b-a)/6*(f(a)+4*f((a+b)/2)+f(b)))
-);
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-Funktion wird definiert …
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-f(x):= -log(x);
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-… und gezeichnet
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-wxplot2d([f(x)], [x,0,5], [y,-2,5])$
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-Die Grenzen werden definiert
-1 -> 4
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-a: 1;
-b: 4;
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-Als Vergleich integriere ich zuerst mit der integrate() Funktion
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-integrate(f(x),x,a,b),numer;
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-Nun wende ich die Kepler'sche Regel an.
-Wie man hier gut erkennen kann, handelt es sich hierbei nur um eine Näherungsformel.
-Dieses Problem kann mit der folgenden Simpson'schen Regel behandelt werden.
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: input   start ] */
-kepler(a,b),numer;
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: fold    end   ] */
-
-/* [wxMaxima: subsect start ]
-ding
-   [wxMaxima: subsect end   ] */
-
-/* [wxMaxima: fold    start ] */
-
-/* [wxMaxima: input   start ] */
-kill(all);
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: comment start ]
-Ist eine numerische Integrationsregel mit der man jede Funktion von x, die stetig ist, integrieren kann.
-f(x)    integrand
-a       untergrenze
-b       obergrenze
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: comment start ]
-Die Kepler'sche Fassregel ist ein Verfahren zur numerischen Berechnung 
-eines Integrals 
-indem man eine Parabel über die eigentliche Funktion legt 
-und den Flächeninhalt unter der Parabel berechnet.
-Das ganze wird folgendermaßen durchgeführt.
-Man nimmt 2 Punkte auf der Funktion an und errechnet sich deren Mittepunkt.
-Nun hat man 3 Punkte.
-Durch diese 3 Punkte legt man eine Parabel.
-Unter der Parabel wird über das Integral die Fläche ausgerechnet.
-So erhält man wie gesagt einen ungenauen Näherrungswert des Integrals
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: comment start ]
-Kepler Block
-a       untergrenze
-b       obergrenze
+(3) Eine Parabel durch diese 3 Punkte legen
+(4) Unter der Parabel wird ueber das Integral die Flaeche ausgerechnet
+(5) Dadurch erhaelt man einen Naeherungswert 
+
+Die Formel ((b-a)/6 * (f(a)+4*f((a+b)/2)+f(b))) wird hierfuer benoetigt.
    [wxMaxima: comment end   ] */
 
 /* [wxMaxima: input   start ] */
@@ -756,39 +477,93 @@ kepler(a,b):=block(
 )$
 /* [wxMaxima: input   end   ] */
 
-/* [wxMaxima: comment start ]
-definieren der Funktion
-testen des blocks von kepler
-untergrenze=0
-obergrenze=8
-   [wxMaxima: comment end   ] */
-
 /* [wxMaxima: input   start ] */
-f(x):=sin(0.1*x);
-kepler(0,8);
+f(x):=log(x)$
+a:2$
+b:5$
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: comment start ]
 Grafik
-a:[[10,0],[10,F(10)]]$
-wxplot2d([F(x),[discrete,a],[discrete,b]],
-    [x,-1,50],[y,-1,25000],
-    [legend,"Stammstunktion","1. Grenze","2. Grenze"])$
    [wxMaxima: comment end   ] */
 
 /* [wxMaxima: input   start ] */
-a:[[0,0],[0,f(0)]];
-b:[[8,0],[8,f(8)]];
+wxdraw2d(yrange = [0,2],
+         xrange = [0.5,6],
+         fill_color  = gray90,
+         filled_func = true,
+         explicit(f,x,a,b),
+         color = dark-magenta,
+         filled_func = false,
+         line_width=3,
+         explicit(f,x,0,20),
+         points_joined=true,
+         line_width=2,
+         point_size=0,
+         color=black,
+         points([2,2],[-0.5,2]),
+         points([5,5],[-0.5,2])
+)$
 /* [wxMaxima: input   end   ] */
 
+/* [wxMaxima: comment start ]
+Berechnung durch verwendung des Kepler blockes
+   [wxMaxima: comment end   ] */
+
 /* [wxMaxima: input   start ] */
-wxplot2d([f(x),[discrete,a],[discrete,b],[discrete,[[0,0]]],[discrete,[[8,f(8)]]],[discrete,[[4,f(4)]]]],
-    [x,-1,10],[y,-1,10],
-    [legend,"Stammstunktion","Untergrenze","Obergrenze","Punkt 1","Punkt 2","Mittelpunkt"],
-    [style,[lines,1,2],[lines,1,3],[lines,1,4],[points,3,1,2],[points,3,2,2],[points,3,3,2]])$
+kepler(2,5),numer;
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: subsect start ]
+Simpson 
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: comment start ]
+Das Simpson Verfahren unterteilt die Flaeche in kleine Teilstuecke und berechnet diese mittels der Keplerschen Fassregel.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+simpson(a,b,n):=block(
+    [p:(b-a)/n,
+     erg:f(a)+f(b),
+     erg1:0],
+    for i:1 step 2 while ( i < n ) do
+        [erg1:erg1+ f(a+i*p)],
+    [erg: erg+4*erg1,erg1:0],
+    for i:2 step 2 while ( i < (n-1) ) do
+        [erg1:erg1 + f(a+i*p)],
+    [erg: (erg+2*erg1)*(b-a)/(3*n)],
+    return(float(erg))
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Angabe
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+f(x):= log(x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Aufrufen der Funktion
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+simpson(2,5,1000);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: section start ]
+Integrationsverfahren
+   [wxMaxima: section end   ] */
 
 /* Maxima can't load/batch files which end with a comment! */
 "Created with wxMaxima"$
