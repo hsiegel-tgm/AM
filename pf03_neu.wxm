@@ -565,5 +565,100 @@ simpson(2,5,1000);
 Integrationsverfahren
    [wxMaxima: section end   ] */
 
+/* [wxMaxima: input   start ] */
+kill (allbut (draw));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Integration durch Substitution
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: comment start ]
+Die Integration durch Substitution ist das Gegenstück der Kettenregel in der Differentialrechnung.
+
+Es wird daher jeweils ein Term einfach ersetzt.
+
+    (1) Integrationsvariable festlegen.
+    (2) Ableiten der Integrationsvariable.
+    (3) dx bilden     dx = du / u'
+    (4) u und dx in Funktion einsetzen.
+    (5) Integrieren
+    (6) für u den ursprünglichen Wert einsetzen
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+f(x):='integrate(5*sqrt(4+5*x),x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+(1) Integrationsvariable u wird festgelegt
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+ug:4+5*x;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f(x):='integrate(5*sqrt(u),x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+(2) Ableiten der Integrationsvariable u 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+u1:diff(ug,x,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+(3) dx wird durch du ersetzt
+du / dx = u' 
+dx = du / u'
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+dx: u/u1;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+(4) u und dx in die Funktion einsetzten
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+'integrate(5*sqrt(u),dx);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Wegstreichen der 5
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+'integrate(sqrt(u),dx*5);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+(5) Integrieren
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+erg:integrate(sqrt(u),5*dx)+c;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+6) für u den ursprünglichen Wert einsetzen
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+subst(ug,u,erg);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: subsect start ]
+Integration durch 
+   [wxMaxima: subsect end   ] */
+
 /* Maxima can't load/batch files which end with a comment! */
 "Created with wxMaxima"$
