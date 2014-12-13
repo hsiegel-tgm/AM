@@ -1,0 +1,156 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 13.04.2 ] */
+
+/* [wxMaxima: title   start ]
+PF03
+   [wxMaxima: title   end   ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+load(draw);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: section start ]
+Glossar
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: comment start ]
+INTEGRATION
+    Die Integration ist das Gegenteil der Differentialrechnung
+BESTIMMTES INTEGRAL
+    Ein bestimmtes Integral ist ein Integral mit Grenzen.
+    Es bestimmt die Flaeche unter einer Funktion zwischen zwei Grenzen. 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: section start ]
+Bestimmtes und unbestimmtes Integral
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: comment start ]
+Unbestimmtes Integral
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+integrate(f(x),x) +c;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Bestimmtes Integral
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+'integrate(f(x),x,a,b);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Unbestimmtes Integral
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Ein unbestimmtes Integral wird durch die Integrationskonstante c zu einem.
+Das anschreiben der Integrationskonstante c bewirkt, 
+dass die Funktion eindeutig zuzuweisen ist, da ja die Konstanten Summen wegfallen.
+/
+| f(x) dx = F(x) + c
+/
+Die Stammfunktion als Ergebnis eines Unbestimmten Integrals hat unendlich vielen Lösungen, 
+die sich nur um den Summanten unterscheiden.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: subsect start ]
+Bestimmtes Integral
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Ein bestimmtes Integral ist die Flaeche unter einer Funktion. 
+Da die Flaechen bekannt sind, faellt die Integrationskonstatante c weg.
+Die Flaeche wird berechnet, in dem die Funktion integriert wird und die zwei Grenzen a und b eingesetzt werden.
+Danach wird vom groessern Funktionswert F(b) der kleinere Funktionswert F(a) subtrahiert.
+Daher entspicht ein bestimmtes Integral f(x) zwischen den Grenzen a und b der Flaeche 
+    zwischen der Funktion, den Senkrechten bei x = a und x = b und der x-Achse.
+  b                   
+ /
+ |
+ | f(x) dx = F(b) - F(a)
+ /                      
+a
+Als Angabe braucht man die Funktion und ihre Grenzen
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+f:6*x^3+2*x^2+x;
+a:0.15;
+b:0.4;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Grafik
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxdraw2d(
+         fill_color  = gray90,
+         filled_func = true,
+         yrange = [0,1.5],
+         xrange = [0,0.8],
+         color = violet,
+         key = "Flaeche",
+         explicit(f,x,a,b),
+         key = "f",
+         filled_func = false,
+         line_width=3,
+         explicit(f,x,0,1),
+         color = cyan,
+         line_width=2,
+         point_type = 7,
+         point_size = 1,
+         key = "a",
+         points_joined = true,
+         color = dark-magenta,
+         point_size = 0,           
+         points([a,a],[0,subst(a,x,f)]),
+         key = "b",
+         color = dark-violet,  
+         points([b,b],[0,subst(b,x,f)])
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: section start ]
+Integration
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: subsect start ]
+Grundintegrale
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: input   start ] */
+regel:[0=0,c=c*n,1/x = ln(x),x^n = (x^n+1) / (n+1),x = x^2/2,x^2 = x^3/3, 1/sqrt(x) = 2* sqrt(x),%e^x = %e^x,%e^(k*x) = (%e^(k*x)/k),a^x = a^x / ln(a), sin(x) = -cos(x),cos(x) = sin(x), tan(x) = log(sec(x)),'integrate(f(x)+g(x),x) = 'integrate(f(x),x)  + 'integrate(g(x),x),'integrate(f(x)+'diff(g(x),x),x) = f(x)*g(x) - 'integrate(g(x)+'diff(f(x),x),x)]$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+for i:1 while i<=length(regel) do [
+    print(regel[i])
+]$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Integration in Maxima
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Die integration in Maxima erfolgt mittels dem integrate Befehl:
+
+Function: integrate (expr, x) => Unbestimmtes Integral 
+Function: integrate (expr, x, a, b) => Bestimmtes Integral
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+integrate(sin(x),x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+integrate(sin(x),x,0,%pi);
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$
