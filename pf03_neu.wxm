@@ -657,8 +657,514 @@ subst(ug,u,erg);
 /* [wxMaxima: fold    end   ] */
 
 /* [wxMaxima: subsect start ]
-Integration durch 
+Integration durch partielle Integration
    [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: comment start ]
+Die partielle Integration ist die Umkehrung der Produktregel der Differentialrechnung.
+Um die partielle Integration Verwenden zu koennen, muss das Integral aus einem Produkt bestehen (u*v).
+Jeweils ein Faktor wird u und ein Faktor wird v zugewiesen. 
+Der Faktor welcher u zugewiesen wird sollte der einfachere sein:
+Die Variable u muss abgeleitet werden.
+Die Variable v muss integriert werden.
+
+/                   /
+|(u * v') = u * v - |(u' * v)  
+/                   /
+
+(1) Die Faktoren den Variablen u und v zuweisen
+(2) u wird abgeleitet
+(3) v wird integriert
+(4) Einsetzen der neuen Werte in die Formel + anfuegen der Integrationskonstante c
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+definieren des Integrals
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+'integrate(x*%e^x,x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+(1) Die Faktoren den Variablen u und v zuweisen
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+u:x$
+vd:%e^x$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+(2) u wird abgeleitet
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+ud: diff(u,x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+(3) v wird integriert
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+v: integrate(vd,x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+(4) Einsetzen der neuen Werte in die Formel + anfuegen der Integrationskonstante c
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+u * v - integrate(ud*v,x)+c;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Ueberprufung des Ergebnisses
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+integrate(x*%e^x,x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: subsect start ]
+Integration durch Partialbruchzerlegung
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: comment start ]
+Die Partialbruchzerlegung (Teilbruch) ist eine Methode zur Vereinfachung des Integranten.
+Diese Methode findet eine Anwendung, wenn ein Term nicht als ganzes integriert werden kann.
+Sie wird verwendet, wenn Z(x) und N(x) beides Polynome sind.
+
+
+1) Polynomdivision durchführen
+2) Nennerpolynom faktorisieren
+3) Auf den Faktoren des Nenners Unbekannte (A,B,C, ...) einsetzen
+4) Auf gemeinsamen Nenner bringen
+5) Ausmultiplizieren
+6) Nach Potenzen sortieren
+7) Koeffizientenvergleich 
+8) Gleichungssystem lösen
+9) Lösungen einsetzen
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Es gibt zwei Faelle:
+    1. Fall   Grad Z(x) < Grad N(x)
+    2. Fall 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+f(x):= 1/((x-2)*(x-3)*(x-4));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f:1/((x-2)*(x-3)*(x-4));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+(2) Zerlegen des Nenners in Faktoren.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+A/(x-2)+B/(x-3)+C/(x-4);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+(3) Auf gemeinsamen Nenner bringen
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+nenner:ratexpand(((C/(x-4))*(x-4) * (x-3) * (x-2) + (B/(x-3))*(x-4) * (x-3) * (x-2) + (A/(x-2))*(x-4) * (x-3) * (x-2)));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+4) Berechnen der Zählervariablen
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+coeff(Funktion, variable, exponent)
+Funktion    bebötigte Funktion
+variable    gibt an welche variable für den Koeffizientenvergleich herangezogen wird
+exponent    zu vergleichender Grad
+Grad =0 x^0
+Grad =1 x^1
+Grad =2 x^2
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+I: coeff(nenner,x,0);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+II: coeff(nenner,x,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+III: coeff(nenner,x,2);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+solve([I,II,III],[A,B,C]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+(5) Einsetzen der Werte in die Gleichung
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+nenner;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+subst(0,C,subst(0,B,subst(0,A,nenner)));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+erg: (1/2)/(x-2)+(-1)/(x-3)+(1/2)/(x-4);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+6) Integrieren von erg
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+integrate(erg,x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: subsect start ]
+Integration durch Partialbruchzerlegung    1. Fall b)       Grad Z(x) < Grad N(x)
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: comment start ]
+Nicht alle Faktoren sind verschieden
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Vorgehensweise:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+1) definieren der Funktion
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+f(x):= 1/((x-2)^2*(x-3));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+2) Zerlegen des Nenners in Faktoren
+    Muss mit der Hand durchgeführt werden, weil es in Maxima keine Funktion dafür gibt.
+    1. Faktor: x-2
+    2. Faktor: (x-2)^2
+    3. Faktor: x-3
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+A/(x-2)+B/(x-2)^2+C/(x-3);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+3)Auf gemeinsamen Nenner bringen
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+a: 1=ratexpand(A*(x-2)*(x-3)+B*(x-3)+C*(x-2)^2);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+4)Berechnen der Zählervariablen
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+b: coeff(a,x,0);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+c: coeff(a,x,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+d: coeff(a,x,2);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+solve([b,c,d],[A,B,C]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+5)5)Einsetzen der Werte in die Gleichung
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+erg: -1/(x-2)+-1/(x-2)^2+1/(x-3);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+6)integrieren von erg
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+integrate(erg,x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: subsect start ]
+Integration durch Partialbruchzerlegung    2. Fall         Z(x) > N(x) 
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: comment start ]
+Ist der Grad des Zählers größer als der des Nenners muss vor der Partialbruchzerlegung eine
+Polynomdivision durchgeführt werden.
+Das Ergebnis muss nicht weiter behandelt werden.
+Der Rest der Polynomdivision wird wie in den vorherigen Unterkapiteln berechnet.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+definieren der Funktion
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+f(x):= (3*x^3+8*x+2)/(x^2+2*x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+durchführen der Polynomdivision
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+divide(3*x^3+8*x+2,x^2+2*x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Der Rest wird wie im 1. Fall berechnet
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+(20*x+2)/(x^2+2*x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Weitere Rechenschritte sind nciht nötig, da diese in den vorhergegangenen Unterkapiteln schon
+behandelt wurden.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: subsect start ]
+Integration durch Partialbruchzerlegung bla Marlene
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: comment start ]
+Vorgehen:
+1) Polynomdivision durchführen
+2) Nennerpolynom faktorisieren
+3) Auf den Faktoren des Nenners Unbekannte (A,B,C, ...) einsetzen
+4) Auf gemeinsamen Nenner bringen
+5) Ausmultiplizieren
+6) Nach Potenzen sortieren
+7) Koeffizientenvergleich 
+8) Gleichungssystem lösen
+9) Lösungen einsetzen
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Beispiel:
+x^4-x^3-x-1 / x^3-x^2
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+f: (x^4-x^3-x-1) / (x^3-x^2);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+(1) Polynomdivision
+Die Polynomdivision kann man nur durchfuehren, wenn entweder Zähler- und 
+Nennerpolynom die gleiche Potenz haben, oder wenn Zählerpolynom größer
+ist als das Nennerpolynom.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+divide(x^4-x^3-x-1,x^3-x^2);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Das ergibt den Quotienten x und den neuen Bruch:
+-x-1/x^3-x^2
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Damit das ganze einfacher wird, heben wir -1 raus (Bruch ist jetzt 
+positiv) und setzen das später wieder ein.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+(2) Nennerpolynom faktorisieren:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+factor(x^3-x^2);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Der 1. Nenner ist x, der 2. x^2 und der 2. x-1
+Wenn eine größere Potenz als 1 beim faktorisieren rauskommt, muss man
+immer jede Potenz als Nenner verwenden
+Beispiel: 
+(x-1)^3
+1. Nenner (x-1)^3
+2. Nenner (x-1)^2
+3. Nenner (x-1)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+3) Auf den Faktoren des Nenners Unbekannte (A,B,C...) einsetzen
+Die einzelnen Brüche werden immer miteinander addiert.
+-x-1/x^3-x^2 = A/x + B/x^2 + C/x-1
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+4) Auf gemeinsamen Nenner bringen:
+-x-1/x^3-x^2 = A/x + B/x^2 + C/x-1
+-x-1 = A*(x^2-x) + B*(x-1) + C*(x^2)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+5) Ausmultiplizieren:
+-x-1 = A*x^2 - A*x + B*x - B + C*x^2
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+6) Nach Potenzen sortieren:
+-x-1 = x^2*(A+c) + x*(-A+B) - B
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+7) Koeffizientenvergleich:
+A+C = 0
+-A+B = 1
+-B = 1
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+8) Gleichungssystem lösen:
+A = -2
+B = -1
+C = 2
+Jetzt geben wir den bei Punkt 2 rausgegebenen Faktor -1 wieder dazu
+A = 2
+B = 1
+C = -2
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+9) Lösungen einsetzen:
+-x-1/x^3-x^2 = 2/x^2 + 1/x - 2/x-1
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Das Ergebniskann man jetzt einfacher Integrieren als den Bruch am 
+Anfang.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Integral x^4-x^3-x-1/x^3-x^2 dx =  Integral (x + 2/x^2 + 1/x -2/x-1) dx
+x^2/2 + 2*-x^-1 + ln|x| - 2*ln|x-1|
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: subsect start ]
+Integration durch Uneigentliche Integrale 
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: subsect start ]
+1. Art
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Wenn mindestens 1 Integrationsgrenze unendlich ist.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+integrate(f(x),x,a,inf);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Damit man dieses Integral "berechnen" kann, bzw damit
+man sieht ob es gegen unendlich läuft muss man statt
+der Grenze die unendlich ist z austauschen und einen 
+Limes (z -> unendlich) vors Integral schreiben. 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Beispiel:
+Integral von 1 bis unendlich von 1/x^3 dx
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+lim(z->unendlich)*Integral von 1 bis z 1/x^3 dx
+=
+lim(z->unendlich)* - (1/2*x^2) in den Grenzen 1 bis z
+=
+-1/2*z^2 - (-1/2)
+=
+1/2
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+integrate(1/x^3,x,1,inf);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+2. Art
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Wenn bei mindestens 1 der beiden Integrationsgrenzen unendlich ist.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Rechnet man genauso wie 1. Art, nur dass man z gegen 0 laufen lässt.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Beispiel: 
+Integral von 0 bis 1 von 1/x^2 dx
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+lim(z->0)*Integral von 0 bis 1 1/x^2 dx
+=
+lim(z->0)* - 1/x in den Grenzen 0 bis 1
+=
+1/z - 1
+=
+Unendlich
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+integrate(1/x^2,x,0,1);
+/* [wxMaxima: input   end   ] */
 
 /* Maxima can't load/batch files which end with a comment! */
 "Created with wxMaxima"$
