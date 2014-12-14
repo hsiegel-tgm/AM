@@ -11,7 +11,7 @@ load(draw);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: section start ]
-Glossar
+Glossar TODO
    [wxMaxima: section end   ] */
 
 /* [wxMaxima: fold    start ] */
@@ -565,6 +565,8 @@ simpson(2,5,1000);
 Integrationsverfahren
    [wxMaxima: section end   ] */
 
+/* [wxMaxima: fold    start ] */
+
 /* [wxMaxima: input   start ] */
 kill (allbut (draw));
 /* [wxMaxima: input   end   ] */
@@ -1094,12 +1096,12 @@ x^2/2 + 2*-x^-1 + ln|x| - 2*ln|x-1|
 /* [wxMaxima: fold    end   ] */
 
 /* [wxMaxima: subsect start ]
-Integration durch Uneigentliche Integrale 
+Integration durch Uneigentliche Integrale TODO
    [wxMaxima: subsect end   ] */
 
-/* [wxMaxima: subsect start ]
-1. Art
-   [wxMaxima: subsect end   ] */
+/* [wxMaxima: input   start ] */
+kill (allbut (draw));
+/* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: comment start ]
 Wenn mindestens 1 Integrationsgrenze unendlich ist.
@@ -1109,35 +1111,9 @@ Wenn mindestens 1 Integrationsgrenze unendlich ist.
 integrate(f(x),x,a,inf);
 /* [wxMaxima: input   end   ] */
 
-/* [wxMaxima: comment start ]
-Damit man dieses Integral "berechnen" kann, bzw damit
-man sieht ob es gegen unendlich läuft muss man statt
-der Grenze die unendlich ist z austauschen und einen 
-Limes (z -> unendlich) vors Integral schreiben. 
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: comment start ]
-Beispiel:
-Integral von 1 bis unendlich von 1/x^3 dx
-   [wxMaxima: comment end   ] */
-
-/* [wxMaxima: comment start ]
-lim(z->unendlich)*Integral von 1 bis z 1/x^3 dx
-=
-lim(z->unendlich)* - (1/2*x^2) in den Grenzen 1 bis z
-=
--1/2*z^2 - (-1/2)
-=
-1/2
-   [wxMaxima: comment end   ] */
-
 /* [wxMaxima: input   start ] */
 integrate(1/x^3,x,1,inf);
 /* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: subsect start ]
-2. Art
-   [wxMaxima: subsect end   ] */
 
 /* [wxMaxima: comment start ]
 Wenn bei mindestens 1 der beiden Integrationsgrenzen unendlich ist.
@@ -1165,6 +1141,8 @@ Unendlich
 /* [wxMaxima: input   start ] */
 integrate(1/x^2,x,0,1);
 /* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: fold    end   ] */
 
 /* Maxima can't load/batch files which end with a comment! */
 "Created with wxMaxima"$
