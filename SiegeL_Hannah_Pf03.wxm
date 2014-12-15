@@ -911,11 +911,9 @@ integrate(1/x^3,x,1,inf);
 Durch Limit können die Grenzwerte definiert werden
 Bei dem integrate Befehl geben wir wie gewohnt beide Grenzen ein, anstatt unendlich allerdings
 eine Variable, welcher wir durch den Limit Befehl gegen unendlich gehen lassen.
-   [wxMaxima: comment end   ] */
 
-/* [wxMaxima: input   start ] */
-limit(integrate (1/(x*(1+x^2),x,1,z)),z,inf);
-/* [wxMaxima: input   end   ] */
+limit(integrate (1/(x*(1+x^2),x,1,z)),z,inf); -> geht nicht?
+   [wxMaxima: comment end   ] */
 
 /* Maxima can't load/batch files which end with a comment! */
 "Created with wxMaxima"$
