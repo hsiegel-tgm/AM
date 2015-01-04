@@ -1,6 +1,10 @@
 /* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
 /* [ Created with wxMaxima version 13.04.2 ] */
 
+/* [wxMaxima: comment start ]
+Kepler: Visualisierung fehlt; Partialbruchzerlegung: Einige Fälle fehlen; Anwendungen fehlen (Flächen-, Volumsberechnung, Bogenlänge, Mittelwert)
+   [wxMaxima: comment end   ] */
+
 /* [wxMaxima: title   start ]
 Grundlagen der Integralrechnung 
 Portfolio_03  -  Siegel Hannah  -  5AHITT

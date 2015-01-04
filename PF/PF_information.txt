@@ -16,3 +16,21 @@ Umgekehrte Kurvendiskussion
 Extremwertaufgaben 
 
 Feedback: Extremwertbsp.: Umsetzung in Maxima fehlt. Rest ausgezeichnet.
+
+PF 03
+
+Bestimmtes und unbestimmtes Integral
+Integration
+Obersumme, Untersumme und die Verfahren von Kepler und Simpson
+Integrationsverfahren
+Uneigentliche Integrale
+
+Feedback: Kepler: Visualisierung fehlt; 
+Partialbruchzerlegung: Einige Fälle fehlen; Anwendungen fehlen (Flächen-, Volumsberechnung, Bogenlänge, Mittelwert)
+
+PF 05
+
+Funktionen in mehreren Variablen
+Extremwertaufgaben
+Gaussche Fehlerfortpflanzungsrechnung
+Regressionsrechnung
