@@ -5,8 +5,6 @@ Regula Falsi
 Bisection (Intervallhalbierung)
 Newton'sche Näherungsverfahren
 
-Feedback: maturareif
-
 PF 02
 
 Differentialquozient und Differenzenquozient 
@@ -15,7 +13,7 @@ Kurvendiskussion
 Umgekehrte Kurvendiskussion
 Extremwertaufgaben 
 
-Feedback: Extremwertbsp.: Umsetzung in Maxima fehlt. Rest ausgezeichnet.
+Feedback noch einzuarbeiten: Extremwertbsp.: Umsetzung in Maxima fehlt. Rest ausgezeichnet.
 
 PF 03
 
@@ -25,7 +23,7 @@ Obersumme, Untersumme und die Verfahren von Kepler und Simpson
 Integrationsverfahren
 Uneigentliche Integrale
 
-Feedback: Kepler: Visualisierung fehlt; 
+Feedback noch einzuarbeiten: Kepler: Visualisierung fehlt; 
 Partialbruchzerlegung: Einige Fälle fehlen; Anwendungen fehlen (Flächen-, Volumsberechnung, Bogenlänge, Mittelwert)
 
 PF 05
@@ -34,3 +32,29 @@ Funktionen in mehreren Variablen
 Extremwertaufgaben
 Gaussche Fehlerfortpflanzungsrechnung
 Regressionsrechnung
+
+PF 06
+
+Richtungsfeld
+   
+
+Theorie Differentialgleichungen
+ 
+
+Lineare DGL mit konstantem Koeffizienten - Analytisches Verfahren
+  
+Runge Kutta - Numerisches Verfahren
+ 
+
+PF 12
+
+
+Folgen
+  und Reihen
+Abschreibungen
+  
+Renten
+  
+
+Potenzreihen und Taylorreihen
+ 
