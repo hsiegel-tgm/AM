@@ -1,0 +1,140 @@
+PF 01
+
+Cardansche Formel
+Regula Falsi
+Bisection (Intervallhalbierung)
+Newton'sche Näherungsverfahren
+
+
+RAUSHAUEN WXPLOT BITTE (ausser Erklaerungen)
+
+Mein bisection geht nur wenns ansteigt?
+zB Mat bsp 2 - ns 2 und ns 3
+
+
+PF 02
+
+Differentialquozient und Differenzenquozient 
+Ableitung elementarer Funktionen, Ableitungsregeln
+Kurvendiskussion
+Umgekehrte Kurvendiskussion
+Extremwertaufgaben 
+
+
+
+Feedback noch einzuarbeiten: Extremwertbsp.: Umsetzung in Maxima fehlt.
+
+Stetige Ergaenzung ? 
+
+Kurvendiskussion : Intervalle !?
+
+
+
+
+PF 03
+
+Bestimmtes und unbestimmtes Integral
+Integration
+Obersumme, Untersumme und die Verfahren von Kepler und Simpson
+Integrationsverfahren
+Uneigentliche Integrale
+
+Feedback noch einzuarbeiten: Kepler: Visualisierung fehlt; 
+Partialbruchzerlegung: Einige Fälle fehlen; Anwendungen fehlen (Flächen-, Volumsberechnung, Bogenlänge, Mittelwert)
+
+
+
+RAUSHAUEN WXPLOT BITTE
+
+
+PF 05
+
+Funktionen in mehreren Variablen
+Extremwertaufgaben
+Gaussche Fehlerfortpflanzungsrechnung
+Regressionsrechnung
+
+PF 06
+
+Richtungsfeld
+   
+
+Theorie Differentialgleichungen
+ 
+
+Lineare DGL mit konstantem Koeffizienten - Analytisches Verfahren
+  
+Runge Kutta - Numerisches Verfahren
+ 
+
+PF 12
+
+
+Folgen
+  und Reihen ( <> {} )
+Abschreibungen
+  
+Renten
+  
+
+Potenzreihen und Taylorreihen
+ 
+
+PF 81 - Statistik und Wahrscheinlichkeitsrechnung
+
+
+Einfache Darstellung
+
+Paretto und Kreisdiagramm
+
+Klassenbildung
+ 
+
+Kenngroessen
+ 
+
+PF 82
+
+
+Stockastik
+   
+
+Abzaehltechniken
+ 
+
+Hypergeometrische Verteilung (diskrete Verteilung)
+ 
+
+Binominalverteilung (diskrete Verteilung)
+   
+
+Poissonverteilung (diskrete Verteilung)
+  
+
+Normalverteilung (kontinuierliche Verteilung)
+   
+Standardisierte Normalverteilung (kontinuierliche Verteilung)
+  
+
+Zusammenhangsanalysen
+   
+
+PF 11 - Wirtschaftsmathematik
+
+Kosten / preistheorie
+Lineare optimierung
+
+
+WICHTIG:
+
+
+EINHEITEN immer
+
+- Integration ist die Flaeche unter einer Funktion bis zur x Achse
+- Ist eine Funktion im 4. Quadranten, so ist die Flaeche jene bis zur x Achse nach oben ? 
+=> wenn das stimmt dann ins PF 02 eintragen
+
+Alle erklaerungen unter 80 zeichen ....
+
+
+
