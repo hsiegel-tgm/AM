@@ -21,14 +21,11 @@ Umgekehrte Kurvendiskussion
 Extremwertaufgaben 
 
 
-
 Feedback noch einzuarbeiten: Extremwertbsp.: Umsetzung in Maxima fehlt.
 
 Stetige Ergaenzung ? 
 
 Kurvendiskussion : Intervalle !?
-
-
 
 
 PF 03
@@ -43,7 +40,6 @@ Feedback noch einzuarbeiten: Kepler: Visualisierung fehlt;
 Partialbruchzerlegung: Einige Fälle fehlen; Anwendungen fehlen (Flächen-, Volumsberechnung, Bogenlänge, Mittelwert)
 
 
-
 RAUSHAUEN WXPLOT BITTE
 
 
@@ -51,8 +47,16 @@ PF 05
 
 Funktionen in mehreren Variablen
 Extremwertaufgaben
-Gaussche Fehlerfortpflanzungsrechnung
+
+Gaussche Fehlerfortpflanzungsrechnung -> ADD UMRECHNUNGS TABELLEN DER EINHEITEN
+Frag ob das immer in selber einheit sein muss.. if yes: ADD IT
+
 Regressionsrechnung
+=> !!! matrix erstellung in PF 82 unten (preufung)
+=> welches ist x und welches y!!!
+
+
+
 
 PF 06
 

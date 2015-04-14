@@ -1,0 +1,898 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 13.04.2 ] */
+
+/* [wxMaxima: comment start ]
+2 AM SA 
+Hannah Siegel
+2015-03-16
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: title   start ]
+Beispiel 2
+   [wxMaxima: title   end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: subsect start ]
+Regressionsbloecke
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: input   start ] */
+schleife(list,w,g,namespace,c_c,d_c):=block(
+    name[namespace]:
+    a*sum((list[i][1])^((w*2)-(g)), i, 1, length(list))
+    +b*sum((list[i][1])^((w*2)-g-1), i, 1, length(list))
+    +c_c*c*sum((list[i][1])^((w*2)-g-2), i, 1, length(list))
+    +d_c*d*sum((list[i][1])^((w*2)-g-3), i, 1, length(list))
+    =sum((list[i][1])^(w-g)*(list[i][2]), i, 1, length(list))
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+regression(list, w):=block(
+    if(w<=2) then d_c:0 else d_c:1,
+   if(w<=1) then c_c:0 else c_c:1,
+    for j:0 step 1 while w+1>(j) do [ 
+    schleife(list,w,j,j,c_c,d_c)
+ ],
+if(w=1) then g=subst(rhs((solve([name[0],name[1]],[a,b])[1])[2]),b,subst(rhs((solve([name[0],name[1]],[a,b])[1])[1]),a,a*x+b))
+else if (w=2) then g=subst(rhs((solve([name[0],name[1],name[2]],[a,b,c])[1])[3]),c,subst(rhs((solve([name[0],name[1],name[2]],[a,b,c])[1])[2]),b,subst(rhs((solve([name[0],name[1],name[2]],[a,b,c])[1])[1]),a,a*x*x+b*x+c)))
+else if (w=3) then g=subst(solve([name[0],name[1],name[2],name[3]],[a,b,c,d])[1],a*x^3 + b*x^2 + c*x + d)
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+make_list(m):=block(
+    list:[],
+    for i:1 thru length(m[1]) do [
+        list: append(list,[[m[1][i],m[2][i]]])
+    ],
+    return(list)
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: subsect start ]
+Angabe
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Angabe
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+auswerteliste1: [[10,2.42], [55,2.62], [28,3.54], [68,2.67], [248,4.67], 
+[36,3.42], [17,1.92], [65,3.5], [9,3.38], [48,3.83], 
+[91,2.77], [61,3.67], [19,2.67], [3,2.08], [18,2.83],
+[7,2.85], [122,4.31], [8,1.42], [114,3.75], [18,2.54], 
+[32,1.31], [155,4.15], [8,2.42], [65,2.85], [143,4.0], 
+[85,3.5], [88,2.92], [36,2.69], [22,2.17], [65,2.92], [37,3.75]]$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+auswerteliste2: [[34,2.87], [124,2.44], [85,3.6], [126,2.87], [67,3.13], 
+[0,2.44], [68,3.47], [167,2.81], [23,2.88], [10,2.44], 
+[70,2.67], [7,1.47], [45,2.69], [45,2.5], [31,1.73],
+[36,2.81], [31,2.63], [79,3.06], [152,2.13], [37,3.47], [239,3.94], [96,2.8]]$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+auswerteliste3: [[129,2.4], [60,2.87], [8,2.4], [385,4.67], [33,2.06], 
+[482,4.38], [17,3.06], [138,3.94], [123,2.73], [357,4.13], 
+[33,1.0], [64,1.0], [29,2.87], [53,3.33], [34,1.38],
+[258,4.27], [5,1.44], [141,2.88], [126,2.67], [25,2.27], 
+[228,3.38], [39,3.0], [37,2.19], [14,2.19], [246,4.06], [5,2.5], [119,3.07], [71,2.4]]$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+fehlstunden1: [10, 55, 28, 68, 248, 36, 17, 65, 9, 48, 91, 61, 19, 3, 18, 7, 122, 
+8, 114, 18, 32, 155, 8, 65, 143, 85, 88, 36, 22, 65, 37]$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+fehlstunden2: [34, 124, 85, 126, 67, 0, 68, 167, 23, 10, 70, 7, 45, 45, 31, 36, 
+31, 79, 152, 37, 239, 96]$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+fehlstunden3: [129, 60, 8, 385, 33, 482, 17, 138, 123, 357, 33, 64, 29, 53, 34,
+258, 5, 141, 126, 25, 228, 39, 37, 14, 246, 5, 119, 71]$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+durchschnittsnote1: [2.42, 2.62, 3.54, 2.67, 4.67, 3.42, 1.92, 3.5, 3.38, 3.83, 2.77, 3.67, 2.67, 2.08, 2.83,
+2.85, 4.31, 1.42, 3.75, 2.54, 1.31, 4.15, 2.42, 2.85, 4.0, 3.5, 2.92, 2.69, 2.17, 2.92, 3.75]$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+durchschnittsnote2: [2.87, 2.44, 3.6, 2.87, 3.13, 2.44, 3.47, 2.81, 2.88, 2.44, 2.67, 1.47, 2.69, 2.5, 1.73,
+2.81, 2.63, 3.06, 2.13, 3.47, 3.94, 2.8]$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+durchschnittsnote3: [2.4, 2.87, 2.4, 4.67, 2.06, 4.38, 3.06, 3.94, 2.73, 4.13, 1.0, 1.0, 2.87, 3.33, 1.38,
+4.27, 1.44, 2.88, 2.67, 2.27, 3.38, 3.0, 2.19, 2.19, 4.06, 2.5, 3.07, 2.4]$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+fehlstunden: append(append(fehlstunden1,fehlstunden2),fehlstunden3)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+durchschnittsnoten: append(append(durchschnittsnote1,durchschnittsnote2),durchschnittsnote3)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+auswerteliste: append(append(auswerteliste1,auswerteliste2),auswerteliste3);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+length(durchschnittsnote1)+length(durchschnittsnote2)+length(durchschnittsnote3);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+length(durchschnittsnoten);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Bloecke yum yeichnen
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: input   start ] */
+load(descriptive)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Der Block  rand_col returnt eine schoene farbe nach zufallsprinzip.
+    intnum ... 1 = pink - ton
+               2 = blau - ton
+               3 = grau - ton
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+rand_col(intnum):=block(
+    colors[1]:[magenta,dark-magenta, violet, dark-violet, plum, purple, light-pink, dark-pink,salmon],
+    colors[2]:[cyan,dark-blue,skyblue,navy,light-blue,blue,dark-cyan],
+    colors[3]:[gray10,gray20,gray30,gray40,gray50,gray60,gray70,gray80,gray90],
+    colors[intnum][random(length(colors[intnum])-1)+1]
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Der Block  prepare_list nimmt die basis liste der werte 
+    (urliste in dem Format [[#Fehler1, FehlerBezeichnung1],[#Fehler2, FehlerBezeichnung2],..] ) 
+    und formt sie auf [[1,2,3...],[FehlerBezeichnung1 ,FehlerBezeichnung5, FehlerBezeichnung3,...],[#Fehler1, #Fehler5, #Fehler3, ...]] um.
+Weiters wird die Liste nach der groesse der Fehler sortiert. 
+Prinzipiell wird dieser Block eigenstaendig von draw_pareto und draw_piechart aufgerufen.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+prepare_list(list_angabe):=block(
+    list_angabe:sort(list_angabe,ordergreatp),
+    angabe_beschriftung:[],
+ angabe_wert:[],
+    angabe_inkr:[],
+  for i:1 while i<= length(list_angabe) do [
+        angabe_beschriftung: append(angabe_beschriftung,[list_angabe[i][2]]),
+        angabe_wert: append(angabe_wert,[list_angabe[i][1]]),
+        angabe_inkr: append(angabe_inkr,[i])
+    ],
+    list_angabe:[angabe_inkr,angabe_beschriftung,angabe_wert]
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Der Block  draw_pareto nimmt die basis liste der werte 
+    (urliste in dem Format [[#Fehler1, FehlerBezeichnung1],[#Fehler2, FehlerBezeichnung2],..] )
+und zeichnet ein Paretto Diagramm
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+draw_pareto(list_angabe):=block(
+  list_angabe:prepare_list(list_angabe),
+  wxdraw2d(
+        xrange=[0,length(list_angabe[3])+1], 
+        yrange=[lmin(list_angabe[3])-1,lmax(list_angabe[3])+1], 
+        xaxis=true, 
+        yaxis=true, 
+        grid=true, 
+        xtics=1, 
+        ytics=5,
+        points_joined = impulses,
+        color=rand_col(1),
+        line_width=10,
+        points(list_angabe[1],list_angabe[3]),
+        xlabel="Fehler", ylabel="Anzahl"
+   )
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Der Block  draw_piechart nimmt die basis liste der werte 
+    (urliste in dem Format [[#Fehler1, FehlerBezeichnung1],[#Fehler2, FehlerBezeichnung2],..] )
+und zeichnet ein Torten Diagramm
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+draw_piechart(list_angabe):=block(
+  list_angabe:prepare_list(list_angabe),
+  list:[],
+  for i:1 while i <= length(list_angabe[1]) do [
+    list: append(list, makelist(list_angabe[2][i],j,1,list_angabe[3][i]))
+  ],
+  wxpiechart(
+        list,
+        proportional_axes=xy,
+        xrange=[-1.03,3], 
+        yrange=[-1.03,1.03],
+        xtics=false,
+        ytics=false,
+        sector_colors = [magenta,dark-magenta, violet, dark-violet, plum, purple, light-pink, dark-pink,salmon],
+        title="Fehler"
+    )
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Der Block klassenbildung hat folgende eingangsparameter:
+    messwerte: messwerte
+    steps: Klassenbreite W
+    anzahl_klassen: anzahl der zu bildenden Klassen
+Folgende ausgangsparameter:
+    klassen: liste der gebildeten Klassen
+    end_list: neue liste im Format: [1,2,6,2,8,3,5,1,5,7,8,3,7,... ]
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+klassenbildung(messwerte,steps,anzahl_klassen):=block(
+  xmin: lmin(messwerte),
+  xmax: lmax(messwerte),
+  klassen:[[0,xmin+2*steps]],
+  xmin:xmin+2*steps,
+  for j:1 while j<anzahl_klassen do [
+    neuer_kleinstwert:xmin+steps,
+    klassen:append(klassen, [[xmin,neuer_kleinstwert]]),
+    xmin:neuer_kleinstwert
+  ],
+  klassen[anzahl_klassen][2]:100000,  
+  for n:1 while n<=length(klassen) do [
+    class[n]:[]
+],
+  end_list:[],
+  for i:1 while i<=length(messwerte) do [ 
+    for j:1 while j<= length(klassen) do [
+        if (messwerte[i] > klassen[j][1] ) then if( messwerte[i] <= klassen[j][2]) then end_list:append( end_list,[j])
+    ]
+  ]
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Der Block get_labels stueckelt die Klassen in ein labels object, welches nachher dann in die Grafik eingebunden werden kann.
+    klassen ... Klassen welche nach dem Aufruf des klassenbildungs-blockes verfuegbar sind
+    delta_minus ... Platz zum Zeichnen der Labels in die negative Richtung
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+get_labels(klassen,delta_minus):=block(
+  a:label(),
+  int_place1:-(delta_minus*0.25),
+  int_place2:-(delta_minus*0.75),
+  for i:1 while i<= length(klassen) do [
+        num:concat("[",klassen[i][1],",",klassen[i][2],"]"),
+        if (evenp(i)=true) then a: append(a,label([num,i,int_place1])),
+        if (evenp(i)=false) then a: append(a,label([num,i,int_place2]))
+  ],
+  label_arr:a
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+--------------------------------------------- draw_normal_generalized -----------------------------------------
+draw_normal_generalized
+    Der draw_normal_generalized Block, zeichnet die normalen Grafiken der Statistik.
+    Er wird von den anderen draw_ Bloecken aufgerufen und sollte fuer den User niemals von Bedeutung sein.
+draw_normal_generalized(ytics_value,title_grafik,ylabel_grafik,balken,list_discrete)
+title_grafik    ... Titel der Grafik
+ylabel_grafik   ... Beschriftung der y_achse (ob Prozente oder Anzahl)
+balken          ... bars() object
+ytics_value     ... Abstand der Werte auf der y-Achse (Default:5)
+list_discrete   ... die discrete liste, zum berechnen der ranges benoetigt 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+draw_normal_generalized(ytics_value,title_grafik,ylabel_grafik,balken,list_discrete) := block(
+     wxdraw2d(
+        xrange=[lmin(list_discrete[1])-1,lmax(list_discrete[1])+1], 
+        yrange=[0,ceiling (lmax(list_discrete[2])+(lmax(list_discrete[2])/10))],
+        xaxis=true, yaxis=true,
+        grid=true,
+        xtics=1, 
+        ytics=ytics_value,
+        fill_color=rand_col(1),
+        balken,
+        title=title_grafik,
+  xlabel="Messwert", ylabel=ylabel_grafik
+    )
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+--------------------------------------------- draw_klassen_generalized -----------------------------------------
+draw_klassen_generalized
+    Der draw_klassen_generalized Block, zeichnet die normalen Grafiken der Statistik.
+    Er wird von den anderen draw_ Bloecken aufgerufen und sollte fuer den User niemals von Bedeutung sein.
+draw_normal_generalized(xdimension,ydimension,ylabel_grafik,title_grafik,list_discrete,labels_list,balken,ytics_value,delta_minus)
+title_grafik    ... Titel der Grafik
+ylabel_grafik   ... Beschriftung der y_achse (ob Prozente oder Anzahl)
+balken          ... bars() object
+ytics_value     ... Abstand der Werte auf der y-Achse
+list_discrete   ... die discrete liste, zum berechnen der ranges benoetigt 
+xdimension      ... Groesse der Zeichnung nach x (Default:500)
+ydimension      ... Groesse der Zeichnung nach y (Default:300)
+labels_list     ... labels() object
+delta_minus     ... POSITIVER Wert, range fuer das anzeigen der Labels (sollte meist zwischen ca 5 und 20 liegen)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+draw_klassen_generalized(xdimension,ydimension,ylabel_grafik,title_grafik,list_discrete,labels_list,balken,ytics_value,delta_minus) := block(
+     wxdraw2d(
+        xrange=[lmin(list_discrete[1])-1,lmax(list_discrete[1])+1], 
+        yrange=[-delta_minus,ceiling (lmax(list_discrete[2])+(lmax(list_discrete[2])/10))],
+        xaxis=false, 
+        yaxis=false, 
+        grid=true,
+        xtics=false, 
+        ytics=ytics_value,
+        color=black,
+        line_type=solid,
+        font_size=11, 
+        font="Arial",
+        dimensions = [xdimension, ydimension],
+        labels_list,
+        font_size=10,
+ fill_color=rand_col(1),
+        balken,
+        xlabel="Klassen", 
+        ylabel=ylabel_grafik,
+        title=title_grafik
+    )
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+--------------------------------------------- draw_<TYPE>_klassen -----------------------------------------
+draw_TYPE_klassen
+    Jeder draw_TYPE_klassen Block, macht die Klasseneinteilung sowie das Zeichnen mit den Labels automatisch.
+    Die Bloecke dienen nur zur abstraktion sowie hilfe fuer den User, um die verwendung des tatsaechlichens draw-Blocks zu vermeiden
+draw_TYPE_klassen(messwerte,steps,anzahl_klasse,ytics,delta_minus,xdimension,ydimension)
+messwerte       ... Eine Liste der messwerte im Format [Messwert1, Messwert2, ...]
+steps           ... Die Klassenbreite W
+anzahl_klassen  ... Anzahl der Klassen
+ytics           ... Abstand der Werte auf der y-Achse
+delta_minus     ... POSITIVER Wert, range fuer das anzeigen der Labels (sollte meist zwischen ca 5 und 20 liegen)
+xdimension      ... Groesse der Zeichnung nach x (Default:500)
+ydimension      ... Groesse der Zeichnung nach y (Default:300)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+draw_KUM_ABS_HFG_klassen(messwerte,steps,anzahl_klassen,ytics_value,delta_minus,groesse1,groesse2):=block(
+  klassenbildung(messwerte,steps, anzahl_klassen),
+  if (delta_minus = 0) then delta_minus:15,
+  get_labels(klassen,delta_minus),
+  draw_KUM_ABS_HFG(end_list,ytics_value,false,label_arr,delta_minus,groesse1,groesse2)
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+draw_RELATIVE_HFG_klassen(messwerte,steps,anzahl_klassen,ytics_value,delta_minus,groesse1,groesse2):=block(
+  klassenbildung(messwerte,steps, anzahl_klassen),
+  if (delta_minus = 0) then delta_minus:5,
+  get_labels(klassen,delta_minus),
+  draw_RELATIVE_HFG(end_list,ytics_value,false,label_arr,delta_minus,groesse1,groesse2)
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+draw_KUM_REL_HFG_klassen(messwerte,steps,anzahl_klassen,ytics_value,delta_minus,groesse1,groesse2):=block(
+  klassenbildung(messwerte,steps, anzahl_klassen),
+  if (delta_minus = 0) then delta_minus:20,
+  get_labels(klassen,delta_minus),
+  draw_KUM_REL_HFG(end_list,ytics_value,false,label_arr,delta_minus,groesse1,groesse2)
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+draw_ABSOLUTE_HFG_klassen(messwerte,steps,anzahl_klassen,ytics_value,delta_minus,groesse1,groesse2):=block(
+  klassenbildung(messwerte,steps, anzahl_klassen),
+  if (delta_minus = 0) then delta_minus:5,
+  get_labels(klassen,delta_minus),
+  draw_ABSOLUTE_HFG(end_list,ytics_value,false,label_arr,delta_minus,groesse1,groesse2)
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+--------------------------------------------- draw_<TYPE>_normal -----------------------------------------
+draw_TYPE_normal
+    Jeder draw_TYPE_normal Block, ruft den komplitzierten draw Block auf, und uebergibt ihm die richtigen Parameter
+draw_TYPE_normal(list_angabe,ytics_value)
+list_angabe       ... Eine Liste der messwerte im Format [Messwert1, Messwert2, ...]
+ytics_value     ... Abstand der Werte auf der y-Achse (Default:5)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+draw_KUM_ABS_HFG_normal(list_angabe,ytics_value):=block(
+  draw_KUM_ABS_HFG(list_angabe,ytics_value,true,0,0,0,0)
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+draw_KUM_REL_HFG_normal(list_angabe,ytics_value):=block(
+  draw_KUM_REL_HFG(list_angabe,ytics_value,true,0,0,0,0)
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+draw_ABSOLUTE_HFG_normal(list_angabe,ytics_value):=block(
+  draw_ABSOLUTE_HFG(list_angabe,ytics_value,true,0,0,0,0)
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+draw_RELATIVE_HFG_normal(list_angabe,ytics_value):=block(
+  draw_RELATIVE_HFG(list_angabe,ytics_value,true,0,0,0,0)
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+--------------------------------------------- draw_<TYPE> ---------------------------------------------
+draw_TYPE
+    Jeder draw_TYPE Block, berechnet und zeichnet die jeweiligen Darstellungen. 
+    Jeder draw_TYPE Block kann sowohl die normale als auch die komplizierte Klassen darstellung zeichnen.
+draw_TYPE_klassen(messwerte,ytics,normal_bool,labels,delta_minus,xdimension,ydimension)
+messwerte       ... Eine Liste der messwerte im Format [Messwert1, Messwert2, ...]
+normal_bool     ... true = normal ; false = mit labels und allem dazugehoerigen berechnungen
+labels_list     ... Liste der Labels welche nach dem Aufruf get_labels vorhanden ist.
+ytics           ... Abstand der Werte auf der y-Achse
+delta_minus     ... POSITIVER Wert, range fuer das anzeigen der Labels (sollte meistens zwischen ca 5 und 20 liegen)
+xdimension      ... Groesse der Zeichnung nach x (Default:500)
+ydimension      ... Groesse der Zeichnung nach y (Default:300)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+draw_ABSOLUTE_HFG(list_angabe,ytics_value,normal_bool,labels_list,delta_minus,xdimension,ydimension):=block(
+    list_discrete:discrete_freq(list_angabe),
+    r:bars(),
+    if (xdimension = 0) then xdimension:500,
+    if (ydimension = 0) then ydimension:300,
+    if (ytics_value = 0) then ytics_value:5,
+    for i:1 while i<=length(list_discrete[1]) do [
+        r: append(r, bars([list_discrete[1][i],list_discrete[2][i],0.5]))
+    ],
+    if (normal_bool=true) then
+        draw_normal_generalized(ytics_value,"Absolute Haeufigkeit","Anzahl",r,list_discrete)
+    else
+    if (normal_bool=false) then
+        draw_klassen_generalized(xdimension,ydimension,"Anzahl","Absolute Haeufigkeit",list_discrete,labels_list,r,ytics_value,delta_minus)
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+draw_KUM_ABS_HFG(list_angabe,ytics_value,normal_bool,labels_list,delta_minus,xdimension,ydimension):=block(
+    list_discrete:discrete_freq(list_angabe),
+    if (xdimension = 0) then xdimension:500,
+    if (ydimension = 0) then ydimension:300,
+    if (ytics_value = 0) then ytics_value:10,
+    neu1:[],
+    neu2:[],
+    found:1,
+    sum:0,
+  neue_werte:[],
+    for n:1 while n<=length(list_discrete[2]) do [
+        neuer_wert: list_discrete[2][n]+sum,
+        sum : sum + list_discrete[2][n],
+        neue_werte:append(neue_werte,[neuer_wert])
+  ],
+    abs_hf:[list_discrete[1],neue_werte],
+    for k:lmin(abs_hf[1]) while k<=lmax(abs_hf[1]) do [
+        neu1:append(neu1,[k]),
+        if ((member(k,abs_hf[1]))) then neu2:append(neu2,[abs_hf[2][found]]),
+        if ((member(k,abs_hf[1]))) then found:found+1,
+        if (not(member(k,abs_hf[1]))) then neu2:append(neu2,[neu2[k-lmin(abs_hf[1])]])
+    ],  
+    list_discrete:[neu1,neu2],
+    r:bars(),
+    for i:1 while i<=length(list_discrete[1]) do [
+        r: append(r, bars([list_discrete[1][i],list_discrete[2][i],0.5]))
+    ],
+    if (normal_bool = true) then
+        draw_normal_generalized(ytics_value,"Kummulative Absolute Haeufigkeit","Anzahl",r,list_discrete)
+    else
+    if (normal_bool = false) then
+      draw_klassen_generalized(xdimension,ydimension,"Anzahl","Kummulative Absolute Haeufigkeit",list_discrete,labels_list,r,ytics_value,delta_minus)
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+draw_KUM_REL_HFG(list_angabe,ytics_value,normal_bool,labels_list,delta_minus,xdimension,ydimension):=block(
+   list_discrete:discrete_freq(list_angabe),
+    if (xdimension = 0) then xdimension:500,
+    if (ydimension = 0) then ydimension:300,
+    if (ytics_value = 0) then ytics_value:10,
+    prozente:[],
+    for n:1 while n<=length(list_discrete[2]) do [
+        prozent: (100/length(list_angabe)) * list_discrete[2][n],
+        prozent: round(prozent),
+        prozente:append(prozente,[prozent])
+    ],
+    list_discrete:[list_discrete[1],prozente],
+    neu1:[],
+    neu2:[],
+    found:1,
+    sum:0,
+    neue_werte:[],
+    for n:1 while n<=length(list_discrete[2]) do [
+        neuer_wert: list_discrete[2][n]+sum,
+        sum : sum + list_discrete[2][n],
+        neue_werte:append(neue_werte,[neuer_wert])
+    ],
+    abs_hf:[list_discrete[1],neue_werte],
+    for k:lmin(abs_hf[1]) while k<=lmax(abs_hf[1]) do [
+        neu1:append(neu1,[k]),
+        if ((member(k,abs_hf[1]))) then neu2:append(neu2,[abs_hf[2][found]]),
+if ((member(k,abs_hf[1]))) then found:found+1,
+        if (not(member(k,abs_hf[1]))) then neu2:append(neu2,[neu2[k-lmin(abs_hf[1])]])
+  ],  
+    list_discrete:[neu1,neu2],
+    r:bars(),
+    for i:1 while i<=length(list_discrete[1]) do [
+        r: append(r, bars([list_discrete[1][i],list_discrete[2][i],0.5]))
+    ],
+    if (normal_bool=true) then
+        draw_normal_generalized(ytics_value,"Kummulative Relative Haeufigkeit","Prozent",r,list_discrete)
+    else
+    if (normal_bool=false) then
+        draw_klassen_generalized(xdimension,ydimension,"Prozent","Kummulative Relative Haeufigkeit",list_discrete,labels_list,r,ytics_value,delta_minus)
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+draw_RELATIVE_HFG(list_angabe,ytics_value,normal_bool,labels_list,delta_minus,xdimension,ydimension):=block(
+    prozente:[],
+    if (xdimension = 0) then xdimension:500,
+    if (ydimension = 0) then ydimension:300,
+    if (ytics_value = 0) then ytics_value:5,
+    list_discrete:discrete_freq(list_angabe),
+    for n:1 while n<=length(list_discrete[2]) do [
+        prozent: (100/length(list_angabe)) * list_discrete[2][n],
+        prozent: float(prozent),
+        prozent: round(prozent),
+        prozente:append(prozente,[prozent])
+    ],
+    list_discrete:[list_discrete[1],prozente],
+    r:bars(),
+    for i:1 while i<=length(list_discrete[1]) do [
+        r: append(r, bars([list_discrete[1][i],list_discrete[2][i],0.5]))
+    ],
+    if (normal_bool = true) then
+        draw_normal_generalized(ytics_value,"Relative Haeufigkeit","Prozent",r,list_discrete)    
+    else
+    if (normal_bool = false) then
+        draw_klassen_generalized(xdimension,ydimension,"Prozent","Relative Haeufigkeit",list_discrete,labels_list,r,ytics_value,delta_minus)
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Block fuer das Zeichnen von Punkten als Punkte:
+    list_angabe ... angabe der Punkte
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+paint_TYPE1_points(list_angabe):=block(
+    return_points:[],
+    for i:1 while i<=length(list_angabe) do [
+        return_points:append(return_points,[[i,list_angabe[i]]])
+    ],
+    wxplot2d([[discrete,return_points]],[x,0,length(return_points)+1],[y,lmin(angabe)-2,lmax(angabe)+2],[style,[points,1,2,4]]) 
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Block fuer das Zeichnen von Punkten als Balken:
+    list_angabe ... angabe der Punkte
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+paint_TYPE1_stricherl(list_angabe):=block(
+    first:[],
+    second:[],
+    for i:1 while i<=length(angabe) do [
+        first: append(first,[angabe[i]]),
+        second: append(second,[i])
+    ],
+    return_stuff:[second,first],
+    wxdraw2d(
+        xrange=[lmin(return_stuff[1])-1,lmax(return_stuff[1])+1], 
+        yrange=[lmin(return_stuff[2])-1,lmax(return_stuff[2])+1], 
+        xaxis=true, 
+        yaxis=true, 
+        grid=true, 
+        xtics=1, 
+        ytics=2,
+        points_joined = impulses,
+        color=rand_col(1),
+        line_width=10,
+        points(return_stuff[1],return_stuff[2]),
+        xlabel="Größe Merkmal", ylabel="Anzahl"
+   )
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+a)
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: input   start ] */
+messwerte:fehlstunden;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+(2)
+Kleinstwert(xmin) und Groesstwert (xmax)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+kleinstwert: lmin(messwerte);
+groesstwert: lmax(messwerte);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+(3)
+Anzahl der Messwerte
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+anzahl_messwerte:length(messwerte);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+(3)
+Anzahl der Klassen
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+anzahl_klassen:(sqrt(anzahl_messwerte)),numer;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+anzahl_klassen:round(anzahl_klassen);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+(4)
+Klassenbreite
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+W = ((groesstwert - kleinstwert) / anzahl_klassen),numer;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+KLASSENBILDUNG
+Das Ergebniss aus (3) und (4) muss nun interpretiert werden.
+Da nur ganzzahlige Klassen gebildet werden koennen, sollten entweder 8 oder 9 Klassen gebildet werden.
+Die Klassenbreite soll bei etwa 1.3 liegen. Da dies eine nicht sehr schoene Zahl ist, kann man entwender 1.25 oder 1.5 waehlen.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Wir waehlen nun folgende werte:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+50 und 9
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+steps:50;
+anzahl_klassen:9;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Aufruf des Blockes
+Return value anzusprechen: end_wert (klasseneingeteilt) , klassen (die eingeteilt wurden)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+klassenbildung(messwerte,steps,anzahl_klassen);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Zeichnen der absoluten Haeufigkeit (Fehlstunden)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+draw_ABSOLUTE_HFG_klassen(messwerte,steps,anzahl_klassen,10,20,0,0);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Zeichnen der relativen Haeufigkeit
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+draw_RELATIVE_HFG_klassen(messwerte,steps,anzahl_klassen,10,20,0,0);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Zeichnen der Kommulativen absoluten Haeufigkeit
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+draw_KUM_ABS_HFG_klassen(messwerte,steps,anzahl_klassen,10,20,0,0);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Kommulative relative Haeufigkeit
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Zeichnen der Kommulativen relativen Haeufigkeit
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+draw_KUM_REL_HFG_klassen(messwerte,steps,anzahl_klassen,10,20,0,0);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: title   start ]
+Beispiel 1
+   [wxMaxima: title   end   ] */
+
+/* [wxMaxima: input   start ] */
+kill(allbut(draw));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+a)
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: comment start ]
+a) 
+
+Die Kostenkahre befindet sich bei K''(x) = 0
+
+Die Grenzkostenfunktion wird durch GK(x) = K'(x) gebildet
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+fg: a*x**3 - b*x**2 +c*x + d;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Kostenkehre
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+kk : diff(fg,x,2)=0;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Grenzkosten
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+fGK: diff(fg,x,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Ein Bestimmen der Extremwerte (min oder max) geschieht, indem man  f' null setzt.
+
+=> minimum von fGK 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+fGK1: diff(fGK,x,1)=0;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+ratsimp(lhs(kk) = lhs(fGK1));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+diese Aussage ist wahr
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* [wxMaxima: subsect start ]
+b)falsch
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: input   start ] */
+fGK;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+KV 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+KV: a*x**3 - b*x**2 +c*x;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Schneiden
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+s:fGK = KV;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Betriebsminimum: 
+
+kv'(x) = 0
+
+
+kv(x[min]) = KURZFRISTIGE PREISUNTERGRENZE
+
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+fkv:KV/x;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+fkv1:diff(fkv,x,1)=0;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+s1:solve(fkv1,x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+ss:ratsimp(rhs(solve(s,x)[3]));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+ratsimp(ss = rhs(s1[1]));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+c)
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+G(x) = E(x) - K(x) 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+KV;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+p
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+d)
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: fold    start ] */
+
+/* [wxMaxima: comment start ]
+Die Zunahme der kosten wird durch die Grenzksotenfunktion beschrieben,
+Das minimum der Grenzkosten entspricht der Kostenkehre (in BSP a bewiesen)
+
+=> Am Geringsten (beim minimum) ist es bei der Kostenkehre
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: fold    end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

@@ -5,6 +5,13 @@ Regula Falsi
 Bisection (Intervallhalbierung)
 Newton'sche Näherungsverfahren
 
+
+RAUSHAUEN WXPLOT BITTE (ausser Erklaerungen)
+
+Mein bisection geht nur wenns ansteigt?
+zB Mat bsp 2 - ns 2 und ns 3
+
+
 PF 02
 
 Differentialquozient und Differenzenquozient 
@@ -13,7 +20,16 @@ Kurvendiskussion
 Umgekehrte Kurvendiskussion
 Extremwertaufgaben 
 
-Feedback noch einzuarbeiten: Extremwertbsp.: Umsetzung in Maxima fehlt. Rest ausgezeichnet.
+
+
+Feedback noch einzuarbeiten: Extremwertbsp.: Umsetzung in Maxima fehlt.
+
+Stetige Ergaenzung ? 
+
+Kurvendiskussion : Intervalle !?
+
+
+
 
 PF 03
 
@@ -25,6 +41,11 @@ Uneigentliche Integrale
 
 Feedback noch einzuarbeiten: Kepler: Visualisierung fehlt; 
 Partialbruchzerlegung: Einige Fälle fehlen; Anwendungen fehlen (Flächen-, Volumsberechnung, Bogenlänge, Mittelwert)
+
+
+
+RAUSHAUEN WXPLOT BITTE
+
 
 PF 05
 
@@ -102,5 +123,20 @@ PF 11 - Wirtschaftsmathematik
 
 Kosten / preistheorie
 Lineare optimierung
+
+PF 13 
+Matrixen
+
+WICHTIG:
+
+
+EINHEITEN immer
+
+- Integration ist die Flaeche unter einer Funktion bis zur x Achse
+- Ist eine Funktion im 4. Quadranten, so ist die Flaeche jene bis zur x Achse nach oben ? 
+=> wenn das stimmt dann ins PF 02 eintragen
+
+Alle erklaerungen unter 80 zeichen ....
+
 
 
