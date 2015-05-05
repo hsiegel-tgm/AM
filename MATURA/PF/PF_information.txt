@@ -1,18 +1,19 @@
-PF 01
+1) TEXT HIER ALS PDF :)
+2) 80 Zeichen!! test!
+3) Allgemeiner Teil mit listen umwandung, umrechnung, zeichnen ...
+4) Schau dir so noch an:
+ - logarithmen
+5) Alle sachen aufklappen und die haupt dinger zuklappen
+6) Bei jederVariable die neu deklariert wird ebventuell ein H davor oder so -> keine probleme
 
-Cardansche Formel
+PF 01 - Nullstellen von Funktionen
+
+Cardansche Formel  (= Quadratische Formel fuer nullstellensuche) 
 Regula Falsi
 Bisection (Intervallhalbierung)
 Newton'sche Näherungsverfahren
 
-
-RAUSHAUEN WXPLOT BITTE (ausser Erklaerungen)
-
-Mein bisection geht nur wenns ansteigt?
-zB Mat bsp 2 - ns 2 und ns 3
-
-
-PF 02
+PF 02 - Kurvendiskussion
 
 Differentialquozient und Differenzenquozient 
 Ableitung elementarer Funktionen, Ableitungsregeln
@@ -20,13 +21,8 @@ Kurvendiskussion
 Umgekehrte Kurvendiskussion
 Extremwertaufgaben 
 
-
-Feedback noch einzuarbeiten: Extremwertbsp.: Umsetzung in Maxima fehlt.
-
+TODO:
 Stetige Ergaenzung ? 
-
-Kurvendiskussion : Intervalle !?
-
 
 PF 03
 
@@ -36,27 +32,25 @@ Obersumme, Untersumme und die Verfahren von Kepler und Simpson
 Integrationsverfahren
 Uneigentliche Integrale
 
-Feedback noch einzuarbeiten: Kepler: Visualisierung fehlt; 
+Feedback noch einzuarbeiten: 
+Kepler: Visualisierung fehlt; 
 Partialbruchzerlegung: Einige Fälle fehlen; Anwendungen fehlen (Flächen-, Volumsberechnung, Bogenlänge, Mittelwert)
+? Integration immer nur bis zur x Achse oder wie?
 
-
-RAUSHAUEN WXPLOT BITTE
 
 
 PF 05
 
 Funktionen in mehreren Variablen
-Extremwertaufgaben
-
-Gaussche Fehlerfortpflanzungsrechnung -> ADD UMRECHNUNGS TABELLEN DER EINHEITEN
+Extremwertaufgaben (mit schnellem Block und langsam)
+Gaussche Fehlerfortpflanzungsrechnung 
+-> ADD UMRECHNUNGS TABELLEN DER EINHEITEN
 Frag ob das immer in selber einheit sein muss.. if yes: ADD IT
 
-Regressionsrechnung
-=> !!! matrix erstellung in PF 82 unten (preufung)
-=> welches ist x und welches y!!!
+Regressionsrechnung + LISTENUMWANDUNG
 
-
-
+=>
+Bsp.1: r nicht in SI-Einheiten eingesetzt. Ergebnisse haben keine relevanten Einheiten! 
 
 PF 06
 
@@ -70,6 +64,16 @@ Lineare DGL mit konstantem Koeffizienten - Analytisches Verfahren
   
 Runge Kutta - Numerisches Verfahren
  
+
+
+Lineare DGL mit konstantem Koeffizienten - Analytisches Verfahren
+
+=> ACHTUNG: hier ist beim Loesungsansatz der Polynomfunktion ein bug?
+=>  a[n] durch einfach a ersetzten?
+
+=> gross C verwenden!!!
+
+==> vergl
 
 PF 12
 
@@ -127,6 +131,11 @@ PF 11 - Wirtschaftsmathematik
 
 Kosten / preistheorie
 Lineare optimierung
+
+
+FEHLT : schoenes anfangs diff feld..
+
+schoene Grafik mit allem!
 
 
 WICHTIG:
